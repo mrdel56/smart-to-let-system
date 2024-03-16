@@ -30,17 +30,18 @@
         </div>
         {% endfor %}
 
-        <form action="" method="post">
+        <form action="/login" method="post">
+          {% csrf_token %}
           <label class="text-white">User Name</label>
           <div class="form-group">
-            <input type="text" class="form-control" name="username">
+            <input type="text" class="form-control" name="username"  Required>
           </div>
           <label class="text-white">Password</label>
           <div class="form-group">
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control" name="password" Required>
           </div>
             <div class="d-grid gap-2 mt-4">
-            <button class="btn btn-primary fw-bold" type="button">Login</button>
+            <button class="btn btn-primary fw-bold" type="submit">Login</button>
             </div>
         </form>
         <p class="fs-5 fw-bold text-white mt-3">New User? <a href="signup">Sign Up</a></p>

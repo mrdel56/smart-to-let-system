@@ -1,6 +1,8 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as login_process
 def home(request):
     return render(request, 'home.html')
 
@@ -19,12 +21,14 @@ def signup(request):
         
         #if password do not match with the confirm password
         if password != confirmpassword:
+            #return HttpResponse("Incorrect Password!")
             messages.warning(request, "Invalid password!")
             return redirect('/signup')
         
         #if username is already taken 
         try:
             if User.objects.get(username=uname):
+                #return HttpResponse("Username already taken")
                 messages.info(request, "Username is already taken!")
                 return redirect('/signup')
             
@@ -34,6 +38,7 @@ def signup(request):
         #if email is already taken
         try:
             if User.objects.get(email=email):
+                #return HttpResponse("Email already taken")
                 messages.info(request, "Email is already taken!")
                 return redirect('/signup')
             
@@ -43,9 +48,21 @@ def signup(request):
 
         myuser = User.objects.create_user(uname,email,password)
         myuser.save()
+        #return HttpResponse("Signup Successful")
         messages.success(request, "Signup successful please login!")
         return redirect('/login')
     return render(request, 'Sign-Up.html')
 
 def login(request):
+    if request.method=="POST":
+        uname=request.POST.get("username")
+        password=request.POST.get("password")
+        myuser=authenticate(username=uname,password=password)
+        if myuser is not None:
+            login_process(request,myuser)
+            messages.success(request, "Login Successfully")
+            return redirect('/home')
+        else:
+            messages.error(request, "Invalid username or password")
+            return redirect('/login')
     return render(request, 'Login.html')
