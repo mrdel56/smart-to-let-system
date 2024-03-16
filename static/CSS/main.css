@@ -1,0 +1,15 @@
+body{
+    background-image: url('../images/to-let-bg.jpg');
+    background-size: 100%;
+}
+.img-thumbnail {
+    padding: 0.25rem;
+    background-color: black;
+    border: 1px solid #dee2e6;
+    border-radius: 21.25rem;
+    width: 75%;
+    height: auto;
+}
+.signup{
+    margin-left: 25%;
+}
