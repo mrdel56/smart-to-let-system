@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_process
+from django.contrib.auth import logout 
 def home(request):
     return render(request, 'home.html')
 
@@ -61,8 +62,13 @@ def login(request):
         if myuser is not None:
             login_process(request,myuser)
             messages.success(request, "Login Successfully")
-            return redirect('/home')
+            return redirect('/')
         else:
             messages.error(request, "Invalid username or password")
             return redirect('/login')
     return render(request, 'Login.html')
+
+def logout(request):
+    logout(request)
+    messages.info(request,"Logout Successful")
+    return redirect('/login')

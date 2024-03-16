@@ -27,10 +27,17 @@
 <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand">Smart To-Let</a>
-    <div class="d-flex justify-content-start">
+    {% if not request.user.is_authenticated %}
+    <div class="d-flex">
         <button type="button" class="btn btn-success"><a href="{% url 'signup' %}">Sign Up</a></button>
-      <button type="button" class="btn btn-success"><a href="{% url 'login' %}">Login</a></button>
+      <button type="button" class="btn btn-success"><a href="{% url 'login' %}">Login</a></button>    
     </div>
+    {% else %}
+    <div class="d-flex">
+      <a class="navbar-brand">{{request.user}}</a> 
+    <button type="button" class="btn btn-success"><a href="{% url 'login' %}">Logout</a></button>    
+  </div>
+    {% endif %}
   </div>
 </nav>
 <nav>
