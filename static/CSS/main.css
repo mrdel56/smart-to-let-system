@@ -1,15 +1,49 @@
-body{
-    background-image: url('../images/to-let-bg.jpg');
-    background-size: 100%;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
 }
 .img-thumbnail {
-    padding: 0.25rem;
-    background-color: black;
-    border: 1px solid #dee2e6;
-    border-radius: 21.25rem;
-    width: 75%;
-    height: auto;
+  padding: 0.25rem;
+  background-color: black;
+  border: 1px solid #dee2e6;
+  border-radius: 21.25rem;
+  width: 75%;
+  height: auto;
 }
-.signup{
-    margin-left: 25%;
+
+.signup-container {
+  background-image: url("../images/to-let-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.signup {
+  /* margin-left: 25%; */
+  width: 600px;
+
+  margin: auto;
+  height: auto;
+  overflow: hidden;
+
+  background-color: #dee2e61e;
+
+  /* add neomorphic effect here */
+  box-shadow: 20px 20px 60px #2828287d, -20px -20px 60px #2828287d;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+@media screen and (max-width: 600px) {
+  .signup {
+    width: 100%;
+  }
 }
