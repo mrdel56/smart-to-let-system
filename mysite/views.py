@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_process
-from django.contrib.auth import logout 
+from django.contrib.auth import logout as logout_process 
 def home(request):
     return render(request, 'home.html')
 
@@ -69,6 +69,6 @@ def login(request):
     return render(request, 'Login.html')
 
 def logout(request):
-    logout(request)
+    logout_process(request)
     messages.info(request,"Logout Successful")
-    return redirect('/login')
+    return redirect('login')

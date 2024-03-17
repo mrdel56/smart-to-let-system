@@ -34,14 +34,14 @@
           {% csrf_token %}
           <label class="text-white">User Name</label>
           <div class="form-group">
-            <input type="text" class="form-control" name="username"  Required>
+            <input type="text" class="form-control" placeholder="Enter username" name="username"  Required>
           </div>
           <label class="text-white">Password</label>
           <div class="form-group">
-            <input type="password" class="form-control" name="password" Required>
+            <input type="password" class="form-control" placeholder="Password" name="password" Required>
           </div>
             <div class="d-grid gap-2 mt-4">
-            <button class="btn btn-primary fw-bold" type="submit">Login</button>
+            <button class="btn btn-primary fw-bold" type="submit">Log in</button>
             </div>
         </form>
         <p class="fs-5 fw-bold text-white mt-3">New User? <a href="signup">Sign Up</a></p>
