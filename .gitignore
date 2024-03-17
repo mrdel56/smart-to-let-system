@@ -11,6 +11,7 @@
 # Ignore environment-specific settings
 .env
 
+venv/
 # Ignore IDE/Editor files
 .vscode/
 *.pyc
