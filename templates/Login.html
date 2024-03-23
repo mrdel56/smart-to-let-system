@@ -13,14 +13,14 @@
     <title>Login</title>
   </head>
   <body>
-  <div class="container mt-3">
+  <div class="login-container">
     <div class="row">
       {% comment %}
       <div class="col-md-4 bg-light">
         <img class="img-thumbnail" src="{%static 'images/to-let-vector.jpg'%}">
       </div>
       {% endcomment %}
-      <div class="col-md-4 mt-3 signup">
+      <div class="login">
         <h3 class="text-black text-center text-white">Login Here</h3>
 
         {% for message in  messages%}
@@ -44,7 +44,7 @@
             <button class="btn btn-primary fw-bold" type="submit">Log in</button>
             </div>
         </form>
-        <p class="fs-5 fw-bold text-white mt-3">New User? <a href="signup">Sign Up</a></p>
+        <p class="fs-6 fw-bold text-white mt-4">New User? <a class="text-warning" href="signup">Sign Up</a></p>
 
       </div>
     </div>
