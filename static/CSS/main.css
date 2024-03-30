@@ -3,8 +3,8 @@
   padding: 0;
 }
 
-body {
-}
+body {}
+
 .img-thumbnail {
   padding: 0.25rem;
   background-color: black;
@@ -34,10 +34,10 @@ body {
   height: auto;
   overflow: hidden;
 
-  background-color: #dee2e61e;
+  background-color: #7070745e;
 
   /* add neomorphic effect here */
-  box-shadow: 20px 20px 60px #2828287d, -20px -20px 60px #2828287d;
+  box-shadow: 20px 20px 60px #28282875, -20px -20px 60px #2828287d;
   border-radius: 20px;
   padding: 30px;
 }
@@ -46,4 +46,31 @@ body {
   .signup {
     width: 100%;
   }
+}
+
+.login-container {
+  background-image: url("../images/to-let-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.login {
+  width: 600px;
+
+  margin: auto;
+  height: auto;
+  overflow: hidden;
+
+  background-color: #726a6a94;
+
+  /* add neomorphic effect here */
+  box-shadow: 20px 20px 60px #2828287d, -20px -20px 60px #2828287d;
+  border-radius: 20px;
+  padding: 30px;
 }
