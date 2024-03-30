@@ -7,9 +7,6 @@ from django.contrib.auth import logout as logout_process
 def home(request):
     return render(request, 'home.html')
 
-def another(request):
-    return render(request, 'another-page.html')
-
 def signup(request):
     if request.method=="POST":
         uname=request.POST.get("username")
