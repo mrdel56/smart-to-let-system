@@ -44,7 +44,7 @@ def signup(request):
             pass
 
 
-        myuser = User.objects.create_user(uname,email,password)
+        myuser = User.objects.create_user(uname,email,password, first_name=fname, last_name=lname)
         myuser.save()
         #return HttpResponse("Signup Successful")
         messages.success(request, "Signup successful please login!")
