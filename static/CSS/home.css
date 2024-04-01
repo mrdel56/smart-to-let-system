@@ -1,0 +1,125 @@
+body{
+    background-image: url('../images/login.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+nav{
+    background: #1a1a1a;
+    width: 100%;
+    padding: 8px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.btn{
+    margin-right: 50px; 
+    margin-bottom: 3px;
+}
+.btn:hover{
+    background: #03a057;
+}
+.logo {
+    width: 60px;
+    margin-left: 100px;
+}
+nav h3{
+    font-weight: 600;
+    color: #fff;
+    margin-left: 10px;
+    display: inline;
+}
+.user-pic{
+    background: #f1eded;
+    width: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 100px;
+    margin-left: 50px;
+    padding: 5px;
+}
+
+nav ul{
+    width: 100%;
+    text-align: right;
+    margin-top: 8px;
+    
+}
+nav ul li{
+    display: inline;
+    list-style: none;
+    margin: 10px 20px;
+}
+
+nav ul li a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 320px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+.sub-menu{
+    background: #d4d0d0;
+    padding: 15px;
+    margin: 10px;
+}
+.user-info{
+    display: flex;
+    align-items: center;
+}
+.sub-menu h3{
+    font-weight: 500;
+    color: #4d4a4a;
+}
+.sub-menu img{
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #4d4a4a;
+    margin: 15px 0 10px;
+}
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+}
+.sub-menu-link p{
+    width: 100%;
+    margin: 10px;
+}
+.sub-menu-link img{
+    width: 40px;
+    background: #f1eded;
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 15px;
+}
+.sub-menu-link span{
+    font-size: 20px;
+    transition: transform 0.5s;
+}
+.sub-menu-link:hover span{
+    transform: translateX(5px);
+}
+.sub-menu-link:hover p{
+    font-weight: 600;
+}
