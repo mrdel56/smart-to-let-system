@@ -10,10 +10,13 @@ def home(request):
     return render(request, "home.html")
 
 
+<<<<<<< HEAD
 def another(request):
     return render(request, "another-page.html")
 
 
+=======
+>>>>>>> main
 def signup(request):
     if request.method == "POST":
         uname = request.POST.get("username")
