@@ -10,13 +10,8 @@ def home(request):
     return render(request, "home.html")
 
 
-<<<<<<< HEAD
-def another(request):
-    return render(request, "another-page.html")
 
 
-=======
->>>>>>> main
 def signup(request):
     if request.method == "POST":
         uname = request.POST.get("username")
@@ -59,22 +54,10 @@ def signup(request):
         except:
             pass
 
-<<<<<<< HEAD
 
-        myuser = User.objects.create_user(uname,email,password, first_name=fname, last_name=lname)
+        myuser = User.objects.create_user(uname,email,password)
         myuser.save()
         #return HttpResponse("Signup Successful")
-=======
-        user = User.objects.create_user(
-            username=uname,
-            email=email,
-            password=password,
-            first_name=fname,
-            last_name=lname,
-        )
-        user.save()
-        # return HttpResponse("Signup Successful")
->>>>>>> 4c37a683a1bab8d0634a1757b96edc34ac2d930c
         messages.success(request, "Signup successful please login!")
         return redirect("/login")
     return render(request, "Sign-Up.html")
