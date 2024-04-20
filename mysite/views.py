@@ -4,12 +4,15 @@ from django.contrib.auth import login as login_process
 from django.contrib.auth import logout as logout_process
 from django.contrib.auth.models import User
 from django.shortcuts import HttpResponse, redirect, render
+from profileapp.models import Profile
+from properties.models import Property
+
 
 
 def home(request):
-    return render(request, "home.html")
-
-
+    profile = Profile.objects.get(user=request.user)
+    properties = Property.objects.all()
+    return render(request, 'home.html', {'profile': profile, 'properties': properties})
 
 
 def signup(request):
@@ -54,10 +57,15 @@ def signup(request):
         except:
             pass
 
-
-        myuser = User.objects.create_user(username=uname, email=email, password=password, first_name=fname, last_name=lname)
-        myuser.save()
-        #return HttpResponse("Signup Successful")
+        user = User.objects.create_user(
+            username=uname,
+            email=email,
+            password=password,
+            first_name=fname,
+            last_name=lname,
+        )
+        user.save()
+        # return HttpResponse("Signup Successful")
         messages.success(request, "Signup successful please login!")
         return redirect("/login")
     return render(request, "Sign-Up.html")
@@ -82,3 +90,10 @@ def logout(request):
     logout_process(request)
     messages.info(request, "Logout Successful")
     return redirect("login")
+
+
+
+from django.views import View
+class CategoryView(View):
+    def get(self,request):
+        return render(request, 'category.html')

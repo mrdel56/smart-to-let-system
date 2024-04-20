@@ -134,9 +134,9 @@
                     Properties
                   </a>
                   <ul class="dropdown-menu mt-4" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Family</a></li>
-                    <li><a class="dropdown-item" href="#">Bachelor</a></li>                
-                    <li><a class="dropdown-item" href="#">Sublet</a></li>
+                    <li><a class="dropdown-item" href="{%url 'category' 'Family'%}">Family</a></li>
+                    <li><a class="dropdown-item" href="{%url 'category' 'Bachelor'%}">Bachelor</a></li>                
+                    <li><a class="dropdown-item" href="{%url 'category' 'Sublet'%}">Sublet</a></li>
                   </ul>
                 </li>
                 <li class="nav-item">
@@ -158,37 +158,43 @@
 
             <!-- User profile menu -->
             <img src="{% static 'images/profile.png' %}" class="user-pic" onclick="toggleMenu()">
-      <div class="sub-menu-wrap" id="ProfilesubMenu">
-        <div class="sub-menu">
-          <div class="user-menu">
-            <img src="{% static 'images/user.png' %}">
-            <h3>{{ request.user }}</h3>
-          </div>
-          <hr>
-
-        
-          <a href="" class="sub-menu-link">
-            <img src="{% static 'images/profile.png' %}">
-            <p>Edit Profile</p>
-            <span>></span>
-          </a>
-          <a href="" class="sub-menu-link">
-            <img src="{% static 'images/setting.png' %}">
-            <p>Settings & Privacy</p>
-            <span>></span>
-          </a>
-          <a href="" class="sub-menu-link">
-            <img src="{% static 'images/help.png' %}">
-            <p>Help & Support</p>
-            <span>></span>
-          </a>
-          <a href="{% url 'logout' %}" class="sub-menu-link">
-            <img src="{% static 'images/logout.png' %}">
-            <p>Logout</p>
-            <span>></span>
-          </a>
-        </div>
-      </div>
+            <div class="sub-menu-wrap" id="ProfilesubMenu">
+              <div class="sub-menu">
+                <div class="user-menu">
+                  <!-- <img src="{% static 'images/user.png' %}"> -->
+                  {% if profile.profile_img %}
+                  <!-- Ensure to render the image URL correctly -->
+                  <img src="{{ profile.profile_img.url }}" alt="Profile Image">
+              {% else %}
+                  <p>No profile image available</p>
+              {% endif %}
+                  <h3>{{ request.user }}</h3>
+                </div>
+                <hr>
+      
+              
+                <a href="{% url 'view-profile' %}" class="sub-menu-link">
+                  <img src="{% static 'images/profile.png' %}">
+                  <p>My Profile</p>
+                  <span>></span>
+                </a>
+                <a href="" class="sub-menu-link">
+                  <img src="{% static 'images/setting.png' %}">
+                  <p>Settings & Privacy</p>
+                  <span>></span>
+                </a>
+                <a href="" class="sub-menu-link">
+                  <img src="{% static 'images/help.png' %}">
+                  <p>Help & Support</p>
+                  <span>></span>
+                </a>
+                <a href="{% url 'logout' %}" class="sub-menu-link">
+                  <img src="{% static 'images/logout.png' %}">
+                  <p>Logout</p>
+                  <span>></span>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </nav>
@@ -205,10 +211,42 @@
     <!-- Navbar Section End-->
 
 
+
+    <!-- All Properties -->
+    <div class="properties-headline">
+      <h2>All Properties</h2>
+    </div>
+        
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      {% for property in properties%}
+      <div class="col">
+        <div class="card h-100 w-100" style="width: 25rem;">
+          
+          {% if property.property_img %}
+            <!-- Ensure to render the image URL correctly -->
+            <img src="{{ property.property_img.url }}" class="card-img-top" alt="Property Image">
+        {% else %}
+            <p>No profile image available</p>
+        {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{property.category}}</h5>
+            <p class="card-text">{{property.space}}</p>
+            <p class="card-text">{{property.address}}</p>
+            <p class="card-text">৳: {{property.price}}</p>            
+            <a href="#" class="btn btn-primary">View Details</a>
+          </div>
+          
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+ 
+    <h1>Bangladesh</h1>
+
       <!-- Footer section start-->
 
       <footer class="container-fluid fixed-bottom bg-dark text-center p-2 mt-5 text-light">
-        Copyrigth : 2024 || Develop By : Team Brogrammers
+        @Copyright : 2024 || Develop By : Team Brogrammers
       </footer>
 
       <!-- Footer section End-->
@@ -219,6 +257,11 @@
       function toggleMenu(){
         subMenu.classList.toggle("open-menu");
       }
+      // let PropertysubMenu = document.getElementById("PropertysubMenu");
+      // function toggleMenu(){
+      //   PropertysubMenu.classList.toggle("open-menu");
+      // }
+      
     </script>
     {%endblock scripts %}
   </body>
