@@ -1,6 +1,12 @@
 from django.contrib import admin
-from .models import Property
+
+from .models import Category, Property
+
+
 # Register your models here.
 @admin.register(Property)
 class PropertyModelAdmin(admin.ModelAdmin):
-    list_display = ['category', 'space', 'address', 'price', 'property_img']
+    list_display = ["category", "space", "address", "price", "property_img"]
+
+
+admin.site.register(Category)
