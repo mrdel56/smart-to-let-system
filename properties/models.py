@@ -1,12 +1,25 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
 
-CATEGORY_CHOICES = (
-    ("Family", "Family"),
-    ("Bachelor", "Bachelor"),
-    ("Sublet", "Sublet"),
-)
+# CATEGORY_CHOICES = (
+#     ("Family", "Family"),
+#     ("Bachelor", "Bachelor"),
+#     ("Sublet", "Sublet"),
+# )
+
+
+# property owner management
+class PropertyOwner(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nid = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=100)
+    properties = models.ManyToManyField("Property", related_name="property_owner")
+
+    def __str__(self):
+        return self.user.username
 
 
 # category management
@@ -51,3 +64,25 @@ class Property(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# property review management
+class Review(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.TextField()
+    rating = models.IntegerField()
+
+    def __str__(self):
+        return self.review
+
+
+# booking management
+class Booking(models.Model):
+    property = models.OneToOneField(Property, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    booking_date = models.DateTimeField(auto_now_add=True)
+    booking_time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.property} {self.user} {self.booking_date} "

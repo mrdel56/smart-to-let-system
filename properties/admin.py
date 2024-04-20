@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Location, Property
+from .models import Booking, Category, Location, Property, PropertyOwner, Review
 
 # Register your models here.
 # @admin.register(Property)
@@ -11,3 +11,6 @@ from .models import Category, Location, Property
 admin.site.register(Category)
 admin.site.register(Location)
 admin.site.register(Property)
+admin.site.register(PropertyOwner)
+admin.site.register(Review)
+admin.site.register(Booking)
