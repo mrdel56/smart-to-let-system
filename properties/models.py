@@ -26,7 +26,7 @@ class Location(models.Model):
     country = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.location_name
+        return f"{self.road_no} {self.post_code} {self.district} {self.division} {self.country}"
 
 
 class Property(models.Model):
@@ -40,15 +40,14 @@ class Property(models.Model):
     # property_img = models.ImageField(upload_to='property/', null=True)
     name = models.TextField()
     description = models.TextField()
-    # location = models.TextField()
     rooms = models.IntegerField()
     washrooms = models.IntegerField()
     kitchen = models.IntegerField()
     balcony = models.IntegerField()
     floor = models.IntegerField()
-    images = models.ImageField(upload_to="property/", null=True)
+    property_img = models.ImageField(upload_to="property/", null=True)
     visibility = models.BooleanField(default=True)
     price = models.FloatField(default=0.00)
 
     def __str__(self):
-        return f"{self.category} {self.address} {self.price}"
+        return self.name
