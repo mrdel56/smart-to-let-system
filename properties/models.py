@@ -18,11 +18,21 @@ class Category(models.Model):
 
 
 # location management
+class Location(models.Model):
+    road_no = models.CharField(max_length=100)
+    post_code = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    division = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.location_name
 
 
 class Property(models.Model):
     # category = models.CharField(choices=CATEGORY_CHOICES,max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
     # space = models.TextField()
     # address = models.TextField()
     # price = models.FloatField(default=0.00)
