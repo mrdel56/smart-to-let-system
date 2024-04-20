@@ -4,14 +4,15 @@ from django.contrib.auth import login as login_process
 from django.contrib.auth import logout as logout_process
 from django.contrib.auth.models import User
 from django.shortcuts import HttpResponse, redirect, render
+from profileapp.models import Profile
+from properties.models import Property
+
 
 
 def home(request):
-    return render(request, "home.html")
-
-
-def another(request):
-    return render(request, "another-page.html")
+    profile = Profile.objects.get(user=request.user)
+    properties = Property.objects.all()
+    return render(request, 'home.html', {'profile': profile, 'properties': properties})
 
 
 def signup(request):
@@ -89,3 +90,10 @@ def logout(request):
     logout_process(request)
     messages.info(request, "Logout Successful")
     return redirect("login")
+
+
+
+from django.views import View
+class CategoryView(View):
+    def get(self,request):
+        return render(request, 'category.html')
