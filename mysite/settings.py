@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "properties",
     "credit",
     "userapp",
+    "contactUsapp",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
