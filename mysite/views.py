@@ -8,11 +8,10 @@ from profileapp.models import Profile
 from properties.models import Property
 
 
-
 def home(request):
     profile = Profile.objects.get(user=request.user)
     properties = Property.objects.all()
-    return render(request, 'home.html', {'profile': profile, 'properties': properties})
+    return render(request, "home.html", {"profile": profile, "properties": properties})
 
 
 def signup(request):
@@ -92,8 +91,9 @@ def logout(request):
     return redirect("login")
 
 
-
 from django.views import View
+
+
 class CategoryView(View):
-    def get(self,request):
-        return render(request, 'category.html')
+    def get(self, request):
+        return render(request, "category.html")
