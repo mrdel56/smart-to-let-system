@@ -48,11 +48,11 @@ def edit_location(request, location_id):
     location = Location.objects.get(id=location_id)
 
     if request.method == "POST":
+        location.area = request.POST.get("area")
         location.road_no = request.POST.get("road_no")
+        location.upazila = request.POST.get("upazila")
         location.post_code = request.POST.get("post_code")
         location.district = request.POST.get("district")
-        location.division = request.POST.get("division")
-        location.country = request.POST.get("country")
         location.save()
 
         messages.success(request, "Location updated successfully!")

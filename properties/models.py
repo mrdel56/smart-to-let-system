@@ -32,14 +32,15 @@ class Category(models.Model):
 
 # location management
 class Location(models.Model):
+    area = models.CharField(max_length=100)
     road_no = models.CharField(max_length=100)
+    upazila = models.CharField(max_length=100)
     post_code = models.CharField(max_length=100)
     district = models.CharField(max_length=100)
-    division = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
+    
 
     def __str__(self):
-        return f"{self.road_no} {self.post_code} {self.district} {self.division} {self.country}"
+        return f"{self.area} {self.road_no} {self.upazila} {self.post_code} {self.district}"
 
 
 class Property(models.Model):
@@ -51,7 +52,7 @@ class Property(models.Model):
     # price = models.FloatField(default=0.00)
     # description = models.TextField()
     # property_img = models.ImageField(upload_to='property/', null=True)
-    name = models.TextField()
+    # name = models.TextField(default='Niribili Apartment')
     description = models.TextField()
     rooms = models.IntegerField()
     washrooms = models.IntegerField()
@@ -63,7 +64,7 @@ class Property(models.Model):
     price = models.FloatField(default=0.00)
 
     def __str__(self):
-        return self.name
+        return (self.category.category_name)
 
 
 # property review management
