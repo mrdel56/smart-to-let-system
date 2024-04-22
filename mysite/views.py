@@ -7,6 +7,8 @@ from django.shortcuts import HttpResponse, redirect, render
 from profileapp.models import Profile
 from properties.models import Property
 
+def base(request):
+    return render(request, "base.html")
 
 def home(request):
     profile = Profile.objects.get(user=request.user)

@@ -1,48 +1,27 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- home.html -->
+{% extends 'base.html' %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'CSS/profile.css' %}"> 
-    <title>My Profile</title>
-  </head>
-  <body>
+{% block title %}My Profile{% endblock %}
 
+{% block content %}
 <div class="container">
-    <div class="card" style="width: 18rem;">
-        {% if profile.profile_img %}
-            <!-- Ensure to render the image URL correctly -->
-            <img src="{{ profile.profile_img.url }}" alt="Profile Image">
-        {% else %}
-            <p>No profile image available</p>
-        {% endif %}
-        <div class="card-body">
-          <h4 class="card-title">Username: {{profile.user.username}}</h4>
-          <!-- <p>Email: {{ profile.user.email }}</p>
-          <p>First name: {{ profile.user.first_name }}</p>
-          <p>Last name: {{ profile.user.last_name}}</p> -->
-          <h5>Name: {{profile.name}}</h5>
-          <h5>User rule: {{profile.user_rule}}</h5>
-          <h5>Profession: {{profile.profession}}</h5>
-          <a href="{% url 'edit-profile' %}" class="btn btn-primary">Edit Profile</a>
-          <a href="{% url 'home' %}" class="ms-5">Go to Home</a>
-        </div>
+  <div class="card" style="width: 18rem;">
+      {% if profile.profile_img %}
+          <!-- Ensure to render the image URL correctly -->
+          <img src="{{ profile.profile_img.url }}" alt="Profile Image">
+      {% else %}
+          <p>No profile image available</p>
+      {% endif %}
+      <div class="card-body">
+        <h4 class="card-title">Username: {{profile.user.username}}</h4>
+        <!-- <p>Email: {{ profile.user.email }}</p>
+        <p>First name: {{ profile.user.first_name }}</p>
+        <p>Last name: {{ profile.user.last_name}}</p> -->
+        <h5>Name: {{profile.name}}</h5>
+        <h5>User rule: {{profile.user_rule}}</h5>
+        <h5>Profession: {{profile.profession}}</h5>
+        <a href="{% url 'edit-profile' %}" class="btn btn-primary">Edit Profile</a>
       </div>
+    </div>
 </div>
-    
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </body>
-</html>
+{% endblock %}
