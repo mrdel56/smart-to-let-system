@@ -15,6 +15,7 @@ urlpatterns = [
     path("", include("properties.urls")),
     path("", include("profileapp.urls")),
     path("", include("credit.urls")),
+    path("", include("contactUsapp.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
