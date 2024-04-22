@@ -13,6 +13,7 @@ urlpatterns = [
     path("logout", views.logout, name="logout"),
     path("", include("properties.urls")),
     path("", include("profileapp.urls")),
+    path("", include("credit.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
