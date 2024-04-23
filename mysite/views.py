@@ -11,9 +11,12 @@ def base(request):
     return render(request, "base.html")
 
 def home(request):
-    profile = Profile.objects.get(user=request.user)
     properties = Property.objects.all()
-    return render(request, "home.html", {"profile": profile, "properties": properties})
+    return render(request, 'home.html', {'properties': properties})
+
+# profile = Profile.objects.get(user=request.user)
+    # 
+    # return render(request, 'home.html', {'profile': profile, 'properties': properties})
 
 
 def signup(request):
