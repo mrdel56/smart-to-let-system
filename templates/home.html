@@ -1,37 +1,40 @@
-<!-- home.html -->
+<!-- home page start -->
 {% extends 'base.html' %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <!-- All Properties -->
-    <div class="properties-headline">
-      <h2>All Properties</h2>
-    </div>
+  <!-- All Properties -->
+  <div class="properties-heading">
+    <h2>All Properties</h2>
+  </div>
+      
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    {% for property in properties%}
+    <div class="col">
+      <div class="card h-100 w-100" style="width: 25rem;">
         
-    <div class="row row-cols-1 row-cols-md-4 g-4">
-      {% for property in properties%}
-      <div class="col">
-        <div class="card h-100 w-100" style="width: 25rem;">
-          
-          {% if property.property_img %}
-            <!-- Ensure to render the image URL correctly -->
-            <img src="{{ property.property_img.url }}" class="card-img-top" alt="Property Image">
-        {% else %}
-            <p>No profile image available</p>
-        {% endif %}
-          <div class="card-body">
-            <h5 class="card-title">{{property.category}}</h5>
-            <p class="card-text">{{property.name}}</p>
-            <p class="card-text">{{property.location}}</p>
-            <p class="card-text">৳: {{property.price}}</p>           
-            <a href="#" class="btn btn-primary">View Details</a>
-          </div>
-          
+        {% if property.property_img %}
+          <!-- Ensure to render the image URL correctly -->
+          <img src="{{ property.property_img.url }}" class="card-img-top" alt="Property Image">
+      {% else %}
+          <p>No profile image available</p>
+      {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{property.category}}</h5>
+          <p class="card-text">{{property.space}}</p>
+          <p class="card-text">{{property.address}}</p>
+          <p class="card-text">৳: {{property.price}}</p>            
+          <a href="#" class="btn btn-primary">View Details</a>
         </div>
+        
       </div>
-      {% endfor %}
     </div>
- 
-    <h1>Bangladesh</h1>
+    {% endfor %}
+  </div>
+
+  <h1>Bangladesh</h1>
 {% endblock %}
+<!-- home page end -->
+
+

@@ -27,7 +27,6 @@
 .signup {
   
   width: 600px;
-
   margin: auto;
   height: auto;
   overflow: hidden;
@@ -60,14 +59,10 @@
 
 .login {
   width: 600px;
-
   margin: auto;
   height: auto;
   overflow: hidden;
-
   background-color: #726a6a94;
-
-  
   box-shadow: 20px 20px 60px #2828287d, -20px -20px 60px #2828287d;
   border-radius: 20px;
   padding: 30px;
