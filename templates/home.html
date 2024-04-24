@@ -8,17 +8,17 @@
 {% endblock %}
 
 {% block content %}
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
-                <strong>{{ message }}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            {% endfor %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
+      <strong>{{ message }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
   <!-- All Properties -->
   <div class="sm:flex justify-between mt-5">
     <h2 class="text-center sm:text-start pb-2 text-3xl font-bold border-b-2 border-b-[#F4511E]">List of Recent properties</h2>
 
-    <button class="w-full sm:w-auto mt-2 sm:mt-0 bg-[#F4511E] text-white font-medium rounded px-5 py-2 hover:shadow-lg duration-200">All Properties</button>
+    <a href="/properties" class="w-full sm:w-auto mt-2 sm:mt-0 bg-[#F4511E] text-white font-medium rounded px-5 py-2 hover:shadow-lg flex items-center duration-200">All Properties</a>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 py-10">
@@ -53,8 +53,8 @@
           <div class="w-full text-center py-3">kit</div>
         </div> {% endcomment %}
 
-        <div class="p-2">
-          <button class="w-full bg-[#F4511E] text-white font-medium rounded-lg px-5 py-2 hover:shadow-lg duration-200">View Details</button>
+        <div class="p-2 w-full flex justify-center">
+          <a href="/properties/{{ property.id }}" class="w-full text-center bg-[#F4511E] text-white font-medium rounded-lg px-5 py-2 hover:shadow-lg duration-200">View Details</a>
         </div>
       </div>
     {% endfor %}

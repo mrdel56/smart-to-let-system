@@ -1,18 +1,44 @@
-from django.shortcuts import render, HttpResponse, redirect
-from django.views import View
-from .models import Property
-from .models import Location
 from django.contrib import messages
+from django.shortcuts import HttpResponse, redirect, render
+from django.views import View
+
+from .models import Category, Location, Property
 
 
 def home(request):
     return render(request, "home.html")
 
 
-class CategoryView(View):
-    def get(self, request, val):
-        property = Property.objects.filter(category=val)
-        return render(request, "category.html", locals())
+def property_list(request):
+    properties = Property.objects.all()
+    return render(request, "properties.html", {"properties": properties})
+
+
+# class CategoryView(View):
+#     def get(self, request, val):
+#         property = Property.objects.filter(category=val)
+#         return render(request, "category.html", locals())
+
+
+# category view
+
+
+def category(request, val):
+
+    properties = Property.objects.filter(category__category_name=val, visibility=True)
+
+    if not properties:
+        messages.error(request, "No properties found in this category!")
+        # return redirect("property_list")
+        return render(request, "properties.html", {"properties": properties})
+
+    return render(request, "properties.html", {"properties": properties})
+
+
+# property details
+def property_details(request, id):
+    property = Property.objects.get(id=id)
+    return render(request, "property_details.html", {"property": property})
 
 
 # Location Views
