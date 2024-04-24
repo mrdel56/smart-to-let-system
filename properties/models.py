@@ -86,4 +86,4 @@ class Booking(models.Model):
     booking_time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.property} {self.user} {self.booking_date} "
+        return f"{self.property} {self.user} {self.booking_date}"

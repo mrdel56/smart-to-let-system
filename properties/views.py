@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import HttpResponse, redirect, render
 from django.views import View
-
+from .import forms
 from .models import Category, Location, Property
+from .forms import PropertyForm
 
 
 def home(request):
@@ -40,6 +41,14 @@ def property_details(request, id):
     property = Property.objects.get(id=id)
     return render(request, "property_details.html", {"property": property})
 
+
+#Contact to Owner
+def contact_owner(request):
+    # Check if the user is authenticated
+    if request.user.is_authenticated:
+        return render(request, "contact_owner.html")
+    else:
+        return render(request, "Login.html")
 
 # Location Views
 
@@ -94,33 +103,15 @@ def property_details(request, id):
 #     return redirect("location_list")
 
 
-# def add_property(request):
-#     if request.method == "POST":
-#         category = request.POST.get("category")
-#         rooms = request.POST.get("rooms")
-#         washrooms = request.POST.get("washrooms")
-#         kitchen = request.POST.get("kitchen")
-#         balcony = request.POST.get("balcony")
-#         floor = request.POST.get("floor")
-#         location = request.POST.get("location")
-#         description = request.POST.get("description")
-#         price = request.POST.get("price")
-#         property_img = request.FILES.get("property_img")
+def add_property(request):
+    if request.method == 'POST':
+        form = forms.PropertyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Add successfull')
 
-#         property = Property.objects.create(
-#             category=category,
-#             rooms=rooms,
-#             washrooms=washrooms,
-#             kitchen=kitchen,
-#             balcony=balcony,
-#             floor=floor,
-#             location=location,
-#             description=description,
-#             price=price,
-#             property_img=property_img,
-#         )
-#         property.save()
-#         messages.success(request, "Property added successfully!")
-#         return redirect("home")
-
-#     return render(request, "add_property.html")
+    else:
+        form = forms.PropertyForm()
+    return render(request,'add_property.html', {
+        "form":form,
+    })

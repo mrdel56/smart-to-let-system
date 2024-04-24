@@ -93,7 +93,7 @@ def login(request):
 def logout(request):
     logout_process(request)
     messages.info(request, "Logout Successful")
-    return redirect("login")
+    return redirect("/login")
 
 
 from django.views import View

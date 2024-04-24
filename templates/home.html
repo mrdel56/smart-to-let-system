@@ -26,7 +26,7 @@
       <div class="rounded-xl shadow-xl">
         {% if property.property_img %}
           <!-- Ensure to render the image URL correctly -->
-          <img src="{% static '/images/slider-3.jpg' %}" class="rounded-t-xl h-56 object-cover w-full" alt="Property Image" />
+          <img src="{{ property.property_img.url}}" class="rounded-t-xl h-56 object-cover w-full" alt="Property Image" />
         {% else %}
           <p>No profile image available</p>
         {% endif %}
@@ -36,12 +36,11 @@
           <p>{{ property.address }}</p>
           <p>৳: {{ property.price }}</p>
           <a href="#">View Details</a> {% endcomment %}
-
-          <p class="font-bold text-lg py-2">Bachelor Room Rent</p>
-          <p class="text-sm text-gray-500">bed: 1, Bath: 1</p>
-          <p class="text-sm text-gray-500">To Let From April</p>
-          <p class="text-sm font-medium text-gray-800">Dhanmondi, Dhaka Bangladesh</p>
-          <p class="text-2xl pt-1 font-bold text-[#F4511E]">7500/Month</p>
+          <p class="font-bold text-lg py-2">{{ property.category }}</p>
+          <p class="text-sm text-gray-500">bed: {{ property.rooms }}, Bath: {{ property.washrooms}}</p>
+          {% comment %} <p class="text-sm text-gray-500">To Let From April</p> {% endcomment %}
+          <p class="text-sm font-medium text-gray-800">{{ property.location}}</p>
+          <p class="text-2xl pt-1 font-bold text-[#F4511E]">{{ property.price}}/Month</p>
         </div>
 
         {% comment %}bottom section{% endcomment %}

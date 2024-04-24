@@ -12,7 +12,7 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path("login", views.login, name="login"),
     path("logout", views.logout, name="logout"),
-    path("properties/", include("properties.urls")),
+    path("", include("properties.urls")),
     path("", include("profileapp.urls")),
     path("", include("credit.urls")),
     path("", include("contactUsapp.urls")),
