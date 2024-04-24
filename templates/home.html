@@ -1,7 +1,11 @@
 <!-- home page start -->
-{% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Home
+{% endblock %}
 
 {% block content %}
             {% for message in messages %}
@@ -11,38 +15,49 @@
               </div>
             {% endfor %}
   <!-- All Properties -->
-  
-  <div class="properties-heading">
-    <h2>All Properties</h2>
+  <div class="sm:flex justify-between mt-5">
+    <h2 class="text-center sm:text-start pb-2 text-3xl font-bold border-b-2 border-b-[#F4511E]">List of Recent properties</h2>
+
+    <button class="w-full sm:w-auto mt-2 sm:mt-0 bg-[#F4511E] text-white font-medium rounded px-5 py-2 hover:shadow-lg duration-200">All Properties</button>
   </div>
-  
-      
-  <div class="row row-cols-1 row-cols-md-4 g-4">
-    {% for property in properties%}
-    <div class="col">
-      <div class="card h-100 w-100" style="width: 25rem;">
-        
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 py-10">
+    {% for property in properties %}
+      <div class="rounded-xl shadow-xl">
         {% if property.property_img %}
           <!-- Ensure to render the image URL correctly -->
-          <img src="{{ property.property_img.url }}" class="card-img-top" alt="Property Image">
-      {% else %}
+          <img src="{% static '/images/slider-3.jpg' %}" class="rounded-t-xl h-56 object-cover w-full" alt="Property Image" />
+        {% else %}
           <p>No profile image available</p>
-      {% endif %}
-        <div class="card-body">
-          <h5 class="card-title">{{property.category}}</h5>
-          <p class="card-text">{{property.space}}</p>
-          <p class="card-text">{{property.address}}</p>
-          <p class="card-text">৳: {{property.price}}</p>            
-          <a href="#" class="btn btn-primary">View Details</a>
+        {% endif %}
+        <div class="p-5">
+          {% comment %} <h5>{{ property.category }}</h5>
+          <p>{{ property.space }}</p>
+          <p>{{ property.address }}</p>
+          <p>৳: {{ property.price }}</p>
+          <a href="#">View Details</a> {% endcomment %}
+
+          <p class="font-bold text-lg py-2">Bachelor Room Rent</p>
+          <p class="text-sm text-gray-500">bed: 1, Bath: 1</p>
+          <p class="text-sm text-gray-500">To Let From April</p>
+          <p class="text-sm font-medium text-gray-800">Dhanmondi, Dhaka Bangladesh</p>
+          <p class="text-2xl pt-1 font-bold text-[#F4511E]">7500/Month</p>
         </div>
-        
+
+        {% comment %}bottom section{% endcomment %}
+        {% comment %} <div class="flex border-t">
+          <div class="w-full text-center py-3 border-r">
+            <i class="fa-solid fa-bed"></i><span>1</span>
+          </div>
+          <div class="w-full text-center py-3 border-r">bath</div>
+          <div class="w-full text-center py-3">kit</div>
+        </div> {% endcomment %}
+
+        <div class="p-2">
+          <button class="w-full bg-[#F4511E] text-white font-medium rounded-lg px-5 py-2 hover:shadow-lg duration-200">View Details</button>
+        </div>
       </div>
-    </div>
     {% endfor %}
   </div>
-
-  <h1>Bangladesh</h1>
 {% endblock %}
 <!-- home page end -->
-
-
