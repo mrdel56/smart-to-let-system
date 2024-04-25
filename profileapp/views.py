@@ -42,9 +42,11 @@ def edit_profile(request):
     return render(request, "edit_profile.html", {"form": form})
 
 
-
-
-
 @login_required
 def my_properties(request):
     return render(request, "my_properties.html")
+
+
+@login_required
+def credits(request):
+    return render(request, "buy_credits.html")
