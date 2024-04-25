@@ -117,6 +117,9 @@ def add_transaction(request):
             )
 
             if not userProfile:
+
+                print("not user profile fired")
+
                 userProfile = UserInfo.objects.create(
                     user=owner,
                     first_name=owner.first_name,
@@ -127,7 +130,7 @@ def add_transaction(request):
                     credit=package.credit,
                 )
             else:
-                userProfile.credit += package.price
+                userProfile.credit += package.credit
                 userProfile.save()
 
             messages.success(
