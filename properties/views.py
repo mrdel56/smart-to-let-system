@@ -4,7 +4,7 @@ from django.views import View
 from .import forms
 from .models import Category, Location, Property
 from .forms import PropertyForm
-
+from django.db.models import Q
 
 def home(request):
     return render(request, "home.html")
@@ -105,13 +105,10 @@ def contact_owner(request):
 
 def add_property(request):
     if request.method == 'POST':
-        form = forms.PropertyForm(request.POST)
+        form = PropertyForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return HttpResponse('Add successfull')
-
+            return redirect('home')  # Redirect to home page after successful property creation
     else:
-        form = forms.PropertyForm()
-    return render(request,'add_property.html', {
-        "form":form,
-    })
+        form = PropertyForm()
+    return render(request, 'add_property.html', {'form': form})

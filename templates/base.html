@@ -67,8 +67,8 @@
 
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
-           <form class="hidden lg:block mr-5 relative" action="">
-           <input type="subject" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E] w-full sm:w-auto" id="search" name="search" placeholder="Search Properties" />
+           <form class="hidden lg:block mr-5 relative" action="" method="">
+           <input type="subject" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E] w-full sm:w-auto" id="search" name="search" value="" placeholder="Search Properties"/>
 
             <button type="submit" class="text-white bg-[#F4511E] hover:bg-[#F4511F] focus:outline-none font-medium rounded-r text-sm px-2 py-2.5 text-center inline-flex items-center absolute right-0 top-0 bottom-0">
               <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
@@ -129,7 +129,7 @@
                 <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
               </li>
               <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Add Property</a>
+                <a href="{%url 'add-property'%}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Add Property</a>
               </li>
               <li>
                 <a href="{% url 'logout'%}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
@@ -200,7 +200,7 @@
     <footer class="container-fluid fixed bottom-0 left-0 right-0  border-t text-center p-2 mt-5  bg-white">@Copyright : 2024 || Develop By : Team Brogrammers</footer>
 
     <!-- Include JavaScript files -->
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static '/js/script.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     {% block scripts %}
       <script>

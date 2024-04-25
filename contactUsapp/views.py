@@ -38,3 +38,5 @@ def contact_form(request):
 
 def contact_success(request):
     return render(request, "contact_success.html")
+
+
