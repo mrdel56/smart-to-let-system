@@ -1,7 +1,16 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Profile
+from django.shortcuts import get_object_or_404, redirect, render
+
 from .forms import ProfileEditForm
+from .models import Profile
+
+# views for dashboard
+
+
+@login_required
+def dashboard(request):
+    return render(request, "dashboard.html")
+
 
 @login_required
 def view_profile(request):
@@ -13,6 +22,7 @@ def view_profile(request):
         # If the profile does not exist, handle it gracefully (e.g., display an error message)
         return render(request, "base.html")
 
+
 @login_required
 def edit_profile(request):
     try:
@@ -21,12 +31,12 @@ def edit_profile(request):
     except Profile.DoesNotExist:
         profile = None
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ProfileEditForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('view-profile')  # Redirect to the profile view
+            return redirect("view-profile")  # Redirect to the profile view
     else:
         form = ProfileEditForm(instance=profile)
 
-    return render(request, 'edit_profile.html', {'form': form})
+    return render(request, "edit_profile.html", {"form": form})
