@@ -40,3 +40,11 @@ def edit_profile(request):
         form = ProfileEditForm(instance=profile)
 
     return render(request, "edit_profile.html", {"form": form})
+
+
+
+
+
+@login_required
+def my_properties(request):
+    return render(request, "my_properties.html")

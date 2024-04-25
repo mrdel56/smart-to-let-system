@@ -1,0 +1,42 @@
+{% extends 'dashboard_base.html' %}
+{% load static %}
+
+{% block title %}
+  My Profile
+{% endblock %}
+
+{% block content %}
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-100 uppercase bg-[#F4511F]">
+        <tr>
+          <th scope="col" class="px-6 py-3">Property Name</th>
+          <th scope="col" class="px-6 py-3">Location</th>
+          <th scope="col" class="px-6 py-3">Category</th>
+          <th scope="col" class="px-6 py-3">Price</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd:bg-white even:bg-gray-100 text-black border-b">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Delwar er bari</th>
+          <td class="px-6 py-4">Dhaka</td>
+          <td class="px-6 py-4">Family</td>
+          <td class="px-6 py-4">৳ 15000</td>
+          <td class="px-6 py-4">
+            <a href="#" class="font-medium text-[#F4511F] hover:underline">Delete</a>
+          </td>
+        </tr>
+        <tr class="odd:bg-white even:bg-gray-100 text-black border-b">
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">Rezwan er bari</th>
+          <td class="px-6 py-4">Dhaka</td>
+          <td class="px-6 py-4">Family</td>
+          <td class="px-6 py-4">৳ 25000</td>
+          <td class="px-6 py-4">
+            <a href="#" class="font-medium text-[#F4511F] hover:underline">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
