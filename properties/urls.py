@@ -1,8 +1,13 @@
 from django.urls import path
+
 from . import views
 
 urlpatterns = [
-    path("", views.home),
-    path("category/<slug:val>", views.CategoryView.as_view(), name="category"),
-    path("location-list/", views.location_list, name="location-list"),
+    path("", views.property_list, name="property_list"),
+    # path("category/<slug:val>", views.CategoryView.as_view(), name="category"),
+    path("<id>", views.property_details, name="property_details"),
+    path("category/<slug:val>", views.category, name="category"),
+    path("contact-owner/", views.contact_owner, name="contact-owner"),
+    path("add-property/", views.add_property, name="add-property"),
+    #path("location-list/", views.location_list, name="location-list"),
 ]
