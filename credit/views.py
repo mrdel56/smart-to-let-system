@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import CreditPackage, Transaction
 from django.contrib import messages
-from properties.models import PropertyOwner
 
+# from properties.models import PropertyOwner
+from django.contrib.auth.models import User
 
 # Credit Package Views
 
@@ -57,28 +58,28 @@ def transaction_list(request):
     return render(request, "transaction_list.html", {"transactions": transactions})
 
 
-def add_transaction(request):
-    if request.method == "POST":
-        owner_id = request.POST.get("owner_id")
-        package_id = request.POST.get("package_id")
-        transaction_id = request.POST.get("transaction_id")
-        amount = request.POST.get("amount")
-        transaction_method = request.POST.get("transaction_method")
+# def add_transaction(request):
+#     if request.method == "POST":
+#         owner_id = request.POST.get("owner_id")
+#         package_id = request.POST.get("package_id")
+#         transaction_id = request.POST.get("transaction_id")
+#         amount = request.POST.get("amount")
+#         transaction_method = request.POST.get("transaction_method")
 
-        owner = PropertyOwner.objects.get(id=owner_id)
-        package = CreditPackage.objects.get(id=package_id)
+#         owner = user.objects.get(id=owner_id)
+#         package = CreditPackage.objects.get(id=package_id)
 
-        Transaction.objects.create(
-            owner=owner,
-            package=package,
-            transaction_id=transaction_id,
-            amount=amount,
-            transaction_method=transaction_method,
-        )
-        messages.success(request, "Transaction added successfully!")
-        return redirect("transaction_list")
+#         Transaction.objects.create(
+#             owner=owner,
+#             package=package,
+#             transaction_id=transaction_id,
+#             amount=amount,
+#             transaction_method=transaction_method,
+#         )
+#         messages.success(request, "Transaction added successfully!")
+#         return redirect("transaction_list")
 
-    return render(request, "add_transaction.html")
+#     return render(request, "add_transaction.html")
 
 
 def delete_transaction(request, transaction_id):
@@ -86,3 +87,39 @@ def delete_transaction(request, transaction_id):
     transaction.delete()
     messages.success(request, "Transaction deleted successfully!")
     return redirect("transaction_list")
+
+
+def add_transaction(request):
+    if request.method == "POST":
+        owner_id = request.POST.get("owner_id")
+        package_id = request.POST.get("package_id")
+        transaction_id = request.POST.get("transaction_id")
+        amount = float(request.POST.get("amount"))
+        transaction_method = request.POST.get("transaction_method")
+
+        try:
+            owner = User.objects.get(id=owner_id)
+            package = CreditPackage.objects.get(id=package_id)
+
+            Transaction.objects.create(
+                owner=owner,
+                package=package,
+                transaction_id=transaction_id,
+                amount=amount,
+                transaction_method=transaction_method,
+            )
+
+            owner.credit += amount
+            owner.save()
+
+            messages.success(
+                request, "Transaction added successfully and user credit updated!"
+            )
+            return redirect("transaction_list")
+
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist!")
+        except CreditPackage.DoesNotExist:
+            messages.error(request, "Credit package does not exist!")
+
+    return render(request, "add_transaction.html")
