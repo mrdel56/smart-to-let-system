@@ -1,26 +1,59 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
+{% load static %}
 
-{% block title %}My Profile{% endblock %}
+{% block title %}
+  My Profile
+{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="card" style="width: 18rem;">
-      {% if profile.profile_img %}
-          <!-- Ensure to render the image URL correctly -->
-          <img src="{{ profile.profile_img.url }}" alt="Profile Image">
-      {% else %}
-          <p>No profile image available</p>
-      {% endif %}
-      <div class="card-body">
-        <h4 class="card-title">Username: {{profile.user.username}}</h4>
-        <!-- <p>Email: {{ profile.user.email }}</p>
-        <p>First name: {{ profile.user.first_name }}</p>
-        <p>Last name: {{ profile.user.last_name}}</p> -->
-        <h5>Name: {{profile.name}}</h5>
-        <h5>User rule: {{profile.user_rule}}</h5>
-        <h5>Profession: {{profile.profession}}</h5>
-        <a href="{% url 'edit-profile' %}" class="btn btn-primary">Edit Profile</a>
+  <div class="container lg:w-1/2 mt-5 mx-auto shadow-lg p-5 rounded-lg">
+    <div class="" style="">
+      <div>
+        <div class="flex flex-col items-center py-3">
+          <div>
+            <!-- Ensure to render the image URL correctly -->
+            {% if profile.profile_img %}
+              <img src="{{ profile.profile_img.url }}" alt="user" class="w-60 h-60 rounded-full object-cover shadow-lg mb-5" />
+            {% else %}
+              <img src="{% static 'images/user.png' %}" alt="user" class="w-60 h-60 rounded-full object-cover shadow-lg mb-5" />
+            {% endif %}
+          </div>
+
+          <div class="ml-3">
+            <h2 class="text-lg font-semibold text-[#F4511F]">Username: <span class="font-bold">{{ profile.user.username }}</span></h2>
+            <p class="text-base text-gray-600">
+              Name: <span class="font-bold">{{ profile.name }}</span>
+            </p>
+            <p class="text-base text-gray-600">
+              Role: <span class="font-bold">{{ profile.role }}</span>
+            </p>
+            <p class="text-base text-gray-600">
+              Profession: <span class="font-bold">{{ profile.profession }}</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-5 w-full flex justify-center">
+          <a href="{% url 'edit-profile' %}" class="w-full text-center bg-[#F4511E] text-white font-medium rounded-lg px-5 py-2 hover:shadow-lg duration-200">EDIT PROFILE</a>
+        </div>
       </div>
+
+      {% comment %} {% if profile.profile_img %}
+        <!-- Ensure to render the image URL correctly -->
+        <img class="w-40" src="{{ profile.profile_img.url }}" alt="Profile Image" />
+      {% else %}
+        <p>No profile image available</p>
+      {% endif %} {% endcomment %}
+      {% comment %} <div class="">
+        <h4 class="card-title">Username: {{ profile.user.username }}</h4>
+        <!--                                    <p>Email: {{ profile.user.email }}</p>
+        <p>First name: {{ profile.user.first_name }}</p>
+        <p>Last name: {{ profile.user.last_name}}</p>                                    -->
+        <h5>Name: {{ profile.name }}</h5>
+        <h5>User rule: {{ profile.user_rule }}</h5>
+        <h5>Profession: {{ profile.profession }}</h5>
+        <a href="{% url 'edit-profile' %}" class="btn btn-primary">Edit Profile</a>
+      </div> {% endcomment %}
     </div>
-</div>
+  </div>
 {% endblock %}

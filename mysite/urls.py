@@ -12,10 +12,11 @@ urlpatterns = [
     path("signup", views.signup, name="signup"),
     path("login", views.login, name="login"),
     path("logout", views.logout, name="logout"),
-    path("", include("properties.urls")),
-    path("", include("profileapp.urls")),
+    path("properties/", include("properties.urls")),
+    path("dashboard/", include("profileapp.urls")),
     path("", include("credit.urls")),
     path("", include("contactUsapp.urls")),
+    # path("", include("dashboard.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

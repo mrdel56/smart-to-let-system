@@ -56,7 +56,7 @@
   </head>
 
   <body>
-    <nav class="bg-white border  shadow-lg border-gray-200 text-black">
+    <nav  class=" fixed top-0 left-0 right-0  bg-white border  shadow-lg border-gray-200 text-black z-50">
       <div class="container mx-auto px-5 flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="{% static '/images/logo.png' %}" class="h-8" alt="Flowbite Logo" />
@@ -80,9 +80,9 @@
 
          {% if not request.user.is_authenticated %}
             <a href="/login" type="button" class="text-white bg-[#F4511E] hover:bg-[#F4511E]/90  font-medium rounded text-xs sm:text-sm sm:px-5 px-3 py-2.5 text-center inline-flex items-center  ">
-  <svg class="w-4 h-4 me-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
-</svg>
+          <svg class="w-4 h-4 me-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+        </svg>
 
       LOGIN 
       </a>
@@ -102,18 +102,34 @@
           <!-- Profile Dropdown menu -->
           <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
             <div class="px-4 py-3">
-              <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-              <span class="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
+              <span class="block text-sm text-gray-900 dark:text-white">
+                {% if request.user.is_authenticated %}
+                  {{ request.user.username }}
+                {% else %}
+                  User
+                {% endif %}
+              </span>
+              <span class="block text-sm text-gray-500 truncate dark:text-gray-400">
+                {% if request.user.is_authenticated %}
+                  {{ request.user.email }}
+                {% else %}
+                 N/A
+
+
+                 {% endif %}
+                </span>
             </div>
             <ul class="py-2" aria-labelledby="user-menu-button">
               <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                <a href="/dashboard/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                  Profile
+                  </a>
               </li>
               <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
+                <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
               </li>
               <li>
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Add Property</a>
               </li>
               <li>
                 <a href="{% url 'logout'%}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
@@ -162,9 +178,9 @@
             <li>
               <a href="/contact" class="block py-2 px-3 text-black md:text-black bg-transparent  md:p-0 hover:bg-[#F4511E] md:hover:bg-transparent hover:text-white md:hover:text-[#F4511E] rounded">Contact</a>
             </li>
-            <li>
+            {% comment %} <li>
               <a href="/add-property" class="block py-2 px-3 text-black md:text-black bg-transparent  md:p-0 hover:bg-[#F4511E] md:hover:bg-transparent hover:text-white md:hover:text-[#F4511E] rounded">Add Property</a>
-            </li>
+            </li> {% endcomment %}
           </ul>
 
           
@@ -175,7 +191,7 @@
       </div>
     </nav>
 
-    <main class="py-5 container mx-auto px-5">
+    <main class="py-5 container mx-auto px-5 mt-20">
       {% block content %}
         <!-- Content specific to individual pages will be inserted here -->
       {% endblock %}
