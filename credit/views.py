@@ -1,9 +1,12 @@
-from django.shortcuts import render, redirect
-from .models import CreditPackage, Transaction
 from django.contrib import messages
 
 # from properties.models import PropertyOwner
 from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+
+from userapp.models import UserInfo
+
+from .models import CreditPackage, Transaction
 
 # Credit Package Views
 
@@ -91,31 +94,46 @@ def delete_transaction(request, transaction_id):
 
 def add_transaction(request):
     if request.method == "POST":
-        owner_id = request.POST.get("owner_id")
+
+        # print("data = ", request.POST)
+
+        user_id = request.POST.get("user_id")
         package_id = request.POST.get("package_id")
         transaction_id = request.POST.get("transaction_id")
-        amount = float(request.POST.get("amount"))
-        transaction_method = request.POST.get("transaction_method")
+        # amount = float(request.POST.get("amount"))
+        # transaction_method = request.POST.get("transaction_method")
 
         try:
-            owner = User.objects.get(id=owner_id)
+            owner = User.objects.get(id=user_id)
+            userProfile = UserInfo.objects.filter(user=user_id).first()
             package = CreditPackage.objects.get(id=package_id)
 
             Transaction.objects.create(
                 owner=owner,
                 package=package,
                 transaction_id=transaction_id,
-                amount=amount,
-                transaction_method=transaction_method,
+                amount=package.price,
+                transaction_method="BKASH",
             )
 
-            owner.credit += amount
-            owner.save()
+            if not userProfile:
+                userProfile = UserInfo.objects.create(
+                    user=owner,
+                    first_name=owner.first_name,
+                    last_name=owner.last_name,
+                    phone="",
+                    address="",
+                    image="",
+                    credit=package.credit,
+                )
+            else:
+                userProfile.credit += package.price
+                userProfile.save()
 
             messages.success(
-                request, "Transaction added successfully and user credit updated!"
+                request, "Buy credit successfully and user credit updated!"
             )
-            return redirect("transaction_list")
+            return redirect("credits")
 
         except User.DoesNotExist:
             messages.error(request, "User does not exist!")

@@ -17,8 +17,8 @@ class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    phone = models.CharField(max_length=11)
-    address = models.TextField()
+    phone = models.CharField(max_length=11 , null=True)
+    address = models.TextField( null=True)
     image = models.ImageField(upload_to="user/", null=True)
     credit = models.IntegerField(default=0)
 
