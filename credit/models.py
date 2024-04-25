@@ -1,6 +1,7 @@
 from django.db import models
 
-from properties.models import PropertyOwner
+# from properties.models import PropertyOwner
+from properties.models import User
 
 # Create your models here.
 
@@ -19,7 +20,7 @@ class CreditPackage(models.Model):
 
 
 class Transaction(models.Model):
-    owner = models.ForeignKey(PropertyOwner, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     package = models.ForeignKey(CreditPackage, on_delete=models.CASCADE)
     transaction_id = models.CharField(max_length=100)
     amount = models.FloatField(default=0.00)

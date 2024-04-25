@@ -20,6 +20,7 @@ class UserInfo(models.Model):
     phone = models.CharField(max_length=11)
     address = models.TextField()
     image = models.ImageField(upload_to="user/", null=True)
+    credit = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
