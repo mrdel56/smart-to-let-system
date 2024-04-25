@@ -1,10 +1,12 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, redirect, render
 from django.views import View
-from .import forms
-from .models import Category, Location, Property
+
+from . import forms
 from .forms import PropertyForm
-from django.db.models import Q
+from .models import Category, Location, Property
+
 
 def home(request):
     return render(request, "home.html")
@@ -42,13 +44,15 @@ def property_details(request, id):
     return render(request, "property_details.html", {"property": property})
 
 
-#Contact to Owner
+# Contact to Owner
+@login_required
 def contact_owner(request):
     # Check if the user is authenticated
     if request.user.is_authenticated:
         return render(request, "contact_owner.html")
     else:
         return render(request, "Login.html")
+
 
 # Location Views
 
@@ -104,11 +108,15 @@ def contact_owner(request):
 
 
 def add_property(request):
-    if request.method == 'POST':
-        form = PropertyForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')  # Redirect to home page after successful property creation
-    else:
-        form = PropertyForm()
-    return render(request, 'add_property.html', {'form': form})
+    # if request.method == 'POST':
+    #     form = forms.PropertyForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return HttpResponse('Add successfull')
+
+    # else:
+    #     form = forms.PropertyForm()
+    # return render(request,'add_property.html', {
+    #     "form":form,
+    # })
+    return render(request, "add_property.html")

@@ -11,15 +11,16 @@ from django.db import models
 
 
 # property owner management
-class PropertyOwner(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nid = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone = models.CharField(max_length=100)
-    properties = models.ManyToManyField("Property", related_name="property_owner")
+# class PropertyOwner(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     nid = models.CharField(max_length=100)
+#     email = models.EmailField()
+#     phone = models.CharField(max_length=100)
+#     properties = models.ManyToManyField("Property", related_name="property_owner")
+    
 
-    def __str__(self):
-        return self.user.username
+#     def __str__(self):
+#         return self.user.username
 
 
 # category management
@@ -37,7 +38,6 @@ class Location(models.Model):
     upazila = models.CharField(max_length=100)
     post_code = models.CharField(max_length=100)
     district = models.CharField(max_length=100)
-    
 
     def __str__(self):
         return f"{self.area} {self.road_no} {self.upazila} {self.post_code} {self.district}"
@@ -64,7 +64,7 @@ class Property(models.Model):
     price = models.FloatField(default=0.00)
 
     def __str__(self):
-        return (self.category.category_name)
+        return self.category.category_name
 
 
 # property review management

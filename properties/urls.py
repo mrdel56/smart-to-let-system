@@ -8,6 +8,6 @@ urlpatterns = [
     path("<id>", views.property_details, name="property_details"),
     path("category/<slug:val>", views.category, name="category"),
     path("contact-owner/", views.contact_owner, name="contact-owner"),
-    path("add-property/", views.add_property, name="add-property"),
-    #path("location-list/", views.location_list, name="location-list"),
+    path("property/add", views.add_property, name="add-property"),
+    # path("location-list/", views.location_list, name="location-list"),
 ]

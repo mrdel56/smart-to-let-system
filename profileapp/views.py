@@ -1,6 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
+from credit.models import CreditPackage
+from userapp.models import UserInfo
+
 from .forms import ProfileEditForm
 from .models import Profile
 
@@ -9,7 +12,10 @@ from .models import Profile
 
 @login_required
 def dashboard(request):
-    return render(request, "dashboard.html")
+
+    userInfo = UserInfo.objects.get(user=request.user)
+
+    return render(request, "dashboard.html", {"userInfo": userInfo})
 
 
 @login_required
@@ -40,3 +46,16 @@ def edit_profile(request):
         form = ProfileEditForm(instance=profile)
 
     return render(request, "edit_profile.html", {"form": form})
+
+
+@login_required
+def my_properties(request):
+    return render(request, "my_properties.html")
+
+
+@login_required
+def credits(request):
+
+    packages = CreditPackage.objects.all()
+
+    return render(request, "buy_credits.html", {"packages": packages})

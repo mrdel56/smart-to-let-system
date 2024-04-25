@@ -1,8 +1,12 @@
-from django.shortcuts import render, redirect
-from .models import CreditPackage, Transaction
 from django.contrib import messages
-from properties.models import PropertyOwner
 
+# from properties.models import PropertyOwner
+from django.contrib.auth.models import User
+from django.shortcuts import redirect, render
+
+from userapp.models import UserInfo
+
+from .models import CreditPackage, Transaction
 
 # Credit Package Views
 
@@ -57,28 +61,28 @@ def transaction_list(request):
     return render(request, "transaction_list.html", {"transactions": transactions})
 
 
-def add_transaction(request):
-    if request.method == "POST":
-        owner_id = request.POST.get("owner_id")
-        package_id = request.POST.get("package_id")
-        transaction_id = request.POST.get("transaction_id")
-        amount = request.POST.get("amount")
-        transaction_method = request.POST.get("transaction_method")
+# def add_transaction(request):
+#     if request.method == "POST":
+#         owner_id = request.POST.get("owner_id")
+#         package_id = request.POST.get("package_id")
+#         transaction_id = request.POST.get("transaction_id")
+#         amount = request.POST.get("amount")
+#         transaction_method = request.POST.get("transaction_method")
 
-        owner = PropertyOwner.objects.get(id=owner_id)
-        package = CreditPackage.objects.get(id=package_id)
+#         owner = user.objects.get(id=owner_id)
+#         package = CreditPackage.objects.get(id=package_id)
 
-        Transaction.objects.create(
-            owner=owner,
-            package=package,
-            transaction_id=transaction_id,
-            amount=amount,
-            transaction_method=transaction_method,
-        )
-        messages.success(request, "Transaction added successfully!")
-        return redirect("transaction_list")
+#         Transaction.objects.create(
+#             owner=owner,
+#             package=package,
+#             transaction_id=transaction_id,
+#             amount=amount,
+#             transaction_method=transaction_method,
+#         )
+#         messages.success(request, "Transaction added successfully!")
+#         return redirect("transaction_list")
 
-    return render(request, "add_transaction.html")
+#     return render(request, "add_transaction.html")
 
 
 def delete_transaction(request, transaction_id):
@@ -86,3 +90,54 @@ def delete_transaction(request, transaction_id):
     transaction.delete()
     messages.success(request, "Transaction deleted successfully!")
     return redirect("transaction_list")
+
+
+def add_transaction(request):
+    if request.method == "POST":
+
+        # print("data = ", request.POST)
+
+        user_id = request.POST.get("user_id")
+        package_id = request.POST.get("package_id")
+        transaction_id = request.POST.get("transaction_id")
+        # amount = float(request.POST.get("amount"))
+        # transaction_method = request.POST.get("transaction_method")
+
+        try:
+            owner = User.objects.get(id=user_id)
+            userProfile = UserInfo.objects.filter(user=user_id).first()
+            package = CreditPackage.objects.get(id=package_id)
+
+            Transaction.objects.create(
+                owner=owner,
+                package=package,
+                transaction_id=transaction_id,
+                amount=package.price,
+                transaction_method="BKASH",
+            )
+
+            if not userProfile:
+                userProfile = UserInfo.objects.create(
+                    user=owner,
+                    first_name=owner.first_name,
+                    last_name=owner.last_name,
+                    phone="",
+                    address="",
+                    image="",
+                    credit=package.credit,
+                )
+            else:
+                userProfile.credit += package.price
+                userProfile.save()
+
+            messages.success(
+                request, "Buy credit successfully and user credit updated!"
+            )
+            return redirect("credits")
+
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist!")
+        except CreditPackage.DoesNotExist:
+            messages.error(request, "Credit package does not exist!")
+
+    return render(request, "add_transaction.html")
