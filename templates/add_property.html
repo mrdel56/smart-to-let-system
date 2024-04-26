@@ -10,12 +10,12 @@
     <h2 class="text-3xl text-center text-[#F4511E] font-bold">Add Property</h2>
     <form method="post">
       {% csrf_token %}
-
-      {% comment %}title{% endcomment %}
-      <div class="mb-3 flex flex-col">
+      
+           {% comment %} title
+      {% comment %} <div class="mb-3 flex flex-col">
         <label for="title" class="form-label">Title</label>
         <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="title" name="category" required placeholder="Enter Property title" />
-      </div>
+      </div> {% endcomment %}
 
       {% comment %}category{% endcomment %}
       <div class="mb-3 flex flex-col">
@@ -125,4 +125,5 @@
       <button type="submit" class="w-full bg-[#F4511E] text-white font-medium rounded px-5 py-3 hover:shadow-lg duration-200">Submit</button>
     </form>
   </div>
+      
 {% endblock %}

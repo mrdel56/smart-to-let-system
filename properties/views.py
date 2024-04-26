@@ -108,15 +108,11 @@ def contact_owner(request):
 
 
 def add_property(request):
-    # if request.method == 'POST':
-    #     form = forms.PropertyForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return HttpResponse('Add successfull')
-
-    # else:
-    #     form = forms.PropertyForm()
-    # return render(request,'add_property.html', {
-    #     "form":form,
-    # })
-    return render(request, "add_property.html")
+    if request.method == 'POST':
+        form = PropertyForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Redirect to home page after successful property creation
+    else:
+        form = PropertyForm()
+    return render(request, 'add_property.html', {'form': form})
