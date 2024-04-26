@@ -14,16 +14,32 @@ from .models import Profile
 def dashboard(request):
 
     userInfo = UserInfo.objects.get(user=request.user)
+    properties = request.user.property_set.all()
 
-    return render(request, "dashboard.html", {"userInfo": userInfo})
+    propertyCount = len(properties)
+
+    return render(
+        request,
+        "dashboard.html",
+        {"userInfo": userInfo, "propertyCount": propertyCount},
+    )
 
 
 @login_required
 def view_profile(request):
     try:
+
+        # get propertyCount
+        properties = request.user.property_set.all()
+        propertyCount = len(properties)
+
         # Get the profile for the authenticated user
         profile = get_object_or_404(Profile, user=request.user)
-        return render(request, "profile.html", {"profile": profile})
+        return render(
+            request,
+            "profile.html",
+            {"profile": profile, "propertyCount": propertyCount},
+        )
     except Profile.DoesNotExist:
         # If the profile does not exist, handle it gracefully (e.g., display an error message)
         return render(request, "base.html")
@@ -50,12 +66,30 @@ def edit_profile(request):
 
 @login_required
 def my_properties(request):
-    return render(request, "my_properties.html")
+
+    properties = request.user.property_set.all()
+    count = len(properties)
+
+    credit = UserInfo.objects.get(user=request.user).credit
+
+    return render(
+        request,
+        "my_properties.html",
+        {"properties": properties, "propertyCount": count, "credit": credit},
+    )
 
 
 @login_required
 def credits(request):
 
     packages = CreditPackage.objects.all()
+    properties = request.user.property_set.all()
+    propertyCount = len(properties)
 
-    return render(request, "buy_credits.html", {"packages": packages})
+    print("property count = ", propertyCount)
+
+    return render(
+        request,
+        "buy_credits.html",
+        {"packages": packages, "propertyCount": propertyCount},
+    )

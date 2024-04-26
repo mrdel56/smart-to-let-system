@@ -224,19 +224,18 @@ def add_property(request):
             return redirect("add-property")
 
     categories = Category.objects.all()
+    properties = request.user.property_set.all()
+    propertyCount = len(properties)
 
-    return render(request, "add_property.html", {"categories": categories})
+    return render(
+        request,
+        "add_property.html",
+        {"categories": categories, "propertyCount": propertyCount},
+    )
 
 
-# def add_property(request):
-#     if request.method == "POST":
-#         form = PropertyForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Property added successfully!")
-#             return redirect("property_list")
-#         else:
-#             messages.error(request, "Error adding property!")
-#             return redirect("add-property")
-
-#     return render(request, "add_property.html")
+def delete_property(request, id):
+    property = Property.objects.get(id=id)
+    property.delete()
+    messages.success(request, "Property deleted successfully!")
+    return redirect("/dashboard/my-properties")

@@ -143,4 +143,7 @@ def add_transaction(request):
         except CreditPackage.DoesNotExist:
             messages.error(request, "Credit package does not exist!")
 
-    return render(request, "add_transaction.html")
+    properties = request.user.property_set.all()
+    propertyCount = len(properties)
+
+    return render(request, "add_transaction.html", {"propertyCount": propertyCount})
