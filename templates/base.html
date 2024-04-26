@@ -67,16 +67,19 @@
 
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
-           <form class="hidden lg:block mr-5 relative" action="" method="">
+           <form action="/properties/?search={{ request.GET.search }}" method="GET" 
+           
+           class="hidden lg:block mr-5 relative" >
            <input type="subject" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E] w-full sm:w-auto" id="search" name="search" value="" placeholder="Search Properties"/>
 
             <button type="submit" class="text-white bg-[#F4511E] hover:bg-[#F4511F] focus:outline-none font-medium rounded-r text-sm px-2 py-2.5 text-center inline-flex items-center absolute right-0 top-0 bottom-0">
               <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
-</svg>
+               <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
+              </svg>
 
             </button>
         </form>
+        
 
          {% if not request.user.is_authenticated %}
             <a href="/login" type="button" class="text-white bg-[#F4511E] hover:bg-[#F4511E]/90  font-medium rounded text-xs sm:text-sm sm:px-5 px-3 py-2.5 text-center inline-flex items-center  ">

@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import HttpResponse, redirect, render
 from django.views import View
 
@@ -15,17 +16,41 @@ def home(request):
 
 
 def property_list(request):
+
     properties = Property.objects.all()
-    return render(request, "properties.html", {"properties": properties})
 
+    # search , sort by price, sort by price, sort by beedroom, sort by bathroom, sort by kitchen, sort by balcony, sort by floor , sorting order by asc or desc
 
-# class CategoryView(View):
-#     def get(self, request, val):
-#         property = Property.objects.filter(category=val)
-#         return render(request, "category.html", locals())
+    search = request.GET.get("search")
+    sort_by = request.GET.get("sort_by")
+    order = request.GET.get("order")
 
+    # Filtering based on search query
+    if search:
+        properties = properties.filter(
+            Q(title__icontains=search)
+            | Q(description__icontains=search)
+            | Q(price__icontains=search)
+            | Q(location__area__icontains=search)
+            | Q(location__upazila__icontains=search)
+            | Q(location__district__icontains=search)
+            | Q(location__post_code__icontains=search)
+            | Q(location__road_no__icontains=search)
+        )
 
-# category view
+    # Sorting based on sort_by and order parameters
+    if sort_by:
+        if order == "desc":
+            sort_field = "-" + sort_by
+        else:
+            sort_field = sort_by
+        properties = properties.order_by(sort_field)
+
+    return render(
+        request,
+        "properties.html",
+        {"properties": properties, "propertyCount": len(properties)},
+    )
 
 
 def category(request, val):
@@ -83,59 +108,6 @@ def contact_owner(request, id):
         )
     else:
         return render(request, "Login.html")
-
-
-# Location Views
-
-
-# def location_list(request):
-#     locations = Location.objects.all()
-#     return render(request, "location_list.html", {"locations": locations})
-
-
-# def add_location(request):
-#     if request.method == "POST":
-#         road_no = request.POST.get("road_no")
-#         post_code = request.POST.get("post_code")
-#         district = request.POST.get("district")
-#         division = request.POST.get("division")
-#         country = request.POST.get("country")
-
-#         Location.objects.create(
-#             road_no=road_no,
-#             post_code=post_code,
-#             district=district,
-#             division=division,
-#             country=country,
-#         )
-#         messages.success(request, "Location added successfully!")
-#         return redirect("location_list")
-
-#     return render(request, "add_location.html")
-
-
-# def edit_location(request, location_id):
-#     location = Location.objects.get(id=location_id)
-
-#     if request.method == "POST":
-#         location.area = request.POST.get("area")
-#         location.road_no = request.POST.get("road_no")
-#         location.upazila = request.POST.get("upazila")
-#         location.post_code = request.POST.get("post_code")
-#         location.district = request.POST.get("district")
-#         location.save()
-
-#         messages.success(request, "Location updated successfully!")
-#         return redirect("location_list")
-
-#     return render(request, "edit_location.html", {"location": location})
-
-
-# def delete_location(request, location_id):
-#     location = Location.objects.get(id=location_id)
-#     location.delete()
-#     messages.success(request, "Location deleted successfully!")
-#     return redirect("location_list")
 
 
 def add_property(request):
