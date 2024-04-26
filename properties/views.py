@@ -227,10 +227,16 @@ def add_property(request):
     properties = request.user.property_set.all()
     propertyCount = len(properties)
 
+    user_info = UserInfo.objects.get(user=request.user)
+
     return render(
         request,
         "add_property.html",
-        {"categories": categories, "propertyCount": propertyCount},
+        {
+            "categories": categories,
+            "propertyCount": propertyCount,
+            "user_info": user_info,
+        },
     )
 
 

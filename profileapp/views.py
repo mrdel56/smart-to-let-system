@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -13,7 +14,7 @@ from .models import Profile
 @login_required
 def dashboard(request):
 
-    userInfo = UserInfo.objects.get(user=request.user)
+    user_info = UserInfo.objects.get(user=request.user)
     properties = request.user.property_set.all()
 
     propertyCount = len(properties)
@@ -21,7 +22,7 @@ def dashboard(request):
     return render(
         request,
         "dashboard.html",
-        {"userInfo": userInfo, "propertyCount": propertyCount},
+        {"user_info": user_info, "propertyCount": propertyCount},
     )
 
 
@@ -34,11 +35,14 @@ def view_profile(request):
         propertyCount = len(properties)
 
         # Get the profile for the authenticated user
-        profile = get_object_or_404(Profile, user=request.user)
+        # profile = get_object_or_404(Profile, user=request.user)
+
+        user_info = UserInfo.objects.get(user=request.user)
+
         return render(
             request,
             "profile.html",
-            {"profile": profile, "propertyCount": propertyCount},
+            {"user_info": user_info, "propertyCount": propertyCount},
         )
     except Profile.DoesNotExist:
         # If the profile does not exist, handle it gracefully (e.g., display an error message)
@@ -47,21 +51,47 @@ def view_profile(request):
 
 @login_required
 def edit_profile(request):
-    try:
-        # Get the profile for the authenticated user
-        profile = request.user.profile
-    except Profile.DoesNotExist:
-        profile = None
 
     if request.method == "POST":
-        form = ProfileEditForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect("view-profile")  # Redirect to the profile view
-    else:
-        form = ProfileEditForm(instance=profile)
+        user_info = UserInfo.objects.get(user=request.user)
 
-    return render(request, "edit_profile.html", {"form": form})
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        phone = request.POST.get("phone")
+        address = request.POST.get("address")
+        image = request.FILES.get("image")
+
+        try:
+            user_info.first_name = first_name
+            user_info.last_name = last_name
+            user_info.phone = phone
+            user_info.address = address
+            user_info.image = image
+
+            user_info.save()
+
+            messages.success(request, "Profile updated successfully")
+
+            return redirect("view-profile")
+            # return redirect("edit-profile")
+        except Exception as e:
+            messages.error(request, "Profile update failed")
+            return redirect("edit-profile")
+
+    # for showing dashboard sidebar
+    properties = request.user.property_set.all()
+    propertyCount = len(properties)
+
+    user_info = UserInfo.objects.get(user=request.user)
+
+    return render(
+        request,
+        "edit_profile.html",
+        {
+            "propertyCount": propertyCount,
+            "user_info": user_info,
+        },
+    )
 
 
 @login_required
