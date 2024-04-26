@@ -1,19 +1,72 @@
-<!-- edit_profile.html -->
 {% extends 'dashboard_base.html' %}
+{% load static %}
 
-{% block title %}Edit Profile{% endblock %}
+{% block title %}
+  My Profile
+{% endblock %}
 
 {% block content %}
-    
-<div class="container">
-  <div class="card" style="width: 35rem;">
-      <div class="card-body">
-          <form method="POST", enctype="multipart/form-data">
-              {% csrf_token %}
-              {{form.as_p}}
-              <button class="btn btn-primary" type="submit" value="submit">Update</button>
-          </form>
+  <div class="container lg:w-1/2 mx-auto shadow-lg p-5 pt-0 rounded-lg">
+    {% for message in messages %}
+      <div id="toast-warning" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 fixed bottom-12 right-5" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+          </svg>
+          <span class="sr-only">Warning icon</span>
+        </div>
+        <div class="ms-3 text-sm font-normal">{{ message }}</div>
+        <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-warning" aria-label="Close">
+          <span class="sr-only">Close</span>
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+        </button>
       </div>
+    {% endfor %}
+
+    <div>
+      <h2 class="text-3xl text-center text-[#F4511E] font-bold">Update Profile</h2>
+      <form action="/dashboard/edit-profile/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% comment %}First name{% endcomment %}
+
+        <div class="mb-3 flex flex-col">
+          <label for="firstName" class="form-label">First name</label>
+          <input value="{{ user_info.first_name }}" type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="firstName" name="first_name" required placeholder="Enter Frist Name" />
+        </div>
+
+        {% comment %}last name{% endcomment %}
+
+        <div class="mb-3 flex flex-col">
+          <label for="lastName" class="form-label">Last name</label>
+          <input value="{{ user_info.last_name }}" type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="lastName" name="last_name" required placeholder="Enter Last Name" />
+        </div>
+
+        {% comment %}phone{% endcomment %}
+
+        <div class="mb-3 flex flex-col">
+          <label for="phone" class="form-label">Phone</label>
+          <input value="{{ user_info.phone }}" type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="phone" name="phone" required placeholder="Enter Phone Number" />
+        </div>
+
+        {% comment %}address{% endcomment %}
+
+        <div class="mb-3 flex flex-col">
+          <label for="address" class="form-label">Address</label>
+          <input value="{{ user_info.address }}" type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="address" name="address" required placeholder="Enter Your Address" />
+        </div>
+
+        {% comment %}property_img{% endcomment %}
+
+        <div class="mb-3 flex flex-col">
+          <label for="image" class="form-label">Profile Image</label>
+          <input type="file" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="image" name="image" required placeholder="Property Image" />
+        </div>
+
+        <button type="submit" class="w-full bg-[#F4511E] text-white font-medium rounded px-5 py-3 hover:shadow-lg duration-200">Submit</button>
+      </form>
     </div>
-</div>
+  </div>
 {% endblock %}

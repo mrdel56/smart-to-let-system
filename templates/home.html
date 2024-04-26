@@ -14,9 +14,9 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div> {% endcomment %}
 
-   <div id="toast-warning" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 fixed bottom-12 left-5" role="alert">
+    <div id="toast-warning" class="flex items-center w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 fixed bottom-12 left-5" role="alert">
       <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
-         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
           <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
         </svg>
         <span class="sr-only">Warning icon</span>
@@ -28,9 +28,7 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
         </svg>
       </button>
-    </div> 
-
-   
+    </div>
   {% endfor %}
   <!-- All Properties -->
   <div class="sm:flex justify-between mt-5">
@@ -49,26 +47,15 @@
           <p>No profile image available</p>
         {% endif %}
         <div class="p-5">
-          {% comment %} <h5>{{ property.category }}</h5>
-          <p>{{ property.space }}</p>
-          <p>{{ property.address }}</p>
-          <p>৳: {{ property.price }}</p>
-          <a href="#">View Details</a> {% endcomment %}
-          <p class="font-bold text-lg py-2">{{ property.category }}</p>
-          <p class="text-sm text-gray-500">bed: {{ property.rooms }}, Bath: {{ property.washrooms }}</p>
+          <p class="font-bold text-lg pt-2">{{ property.title }}</p>
+          <h5 class="pb-2 text-sm">Category: <span class="font-bold">{{ property.category }}</span></h5>
+          <p class="text-sm text-gray-500">bed: {{ property.rooms }}, Bath: {{ property.washrooms }}, Kithchen:{{ property.kitchen }}</p>
           {% comment %} <p class="text-sm text-gray-500">To Let From April</p> {% endcomment %}
           <p class="text-sm font-medium text-gray-800">{{ property.location }}</p>
           <p class="text-2xl pt-1 font-bold text-[#F4511E]">{{ property.price }}/Month</p>
         </div>
 
         {% comment %}bottom section{% endcomment %}
-        {% comment %} <div class="flex border-t">
-          <div class="w-full text-center py-3 border-r">
-            <i class="fa-solid fa-bed"></i><span>1</span>
-          </div>
-          <div class="w-full text-center py-3 border-r">bath</div>
-          <div class="w-full text-center py-3">kit</div>
-        </div> {% endcomment %}
 
         <div class="p-2 w-full flex justify-center">
           <a href="/properties/{{ property.id }}" class="w-full text-center bg-[#F4511E] text-white font-medium rounded-lg px-5 py-2 hover:shadow-lg duration-200">View Details</a>

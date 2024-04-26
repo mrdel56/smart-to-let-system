@@ -25,127 +25,137 @@
       </div>
     {% endfor %}
 
-    <h2 class="text-3xl text-center text-[#F4511E] font-bold">Add Property</h2>
-    <form action="/properties/property/add" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
+    {% if user_info.credit < 5 %}
+      <div class="p-5 flex flex-col items-center">
+        <h1 class="text-red-500 text-center font-medium text-lg mb-5">You don't have enough credit to add property</h1>
 
-      {% comment %}title{% endcomment %}
-
-      <div class="mb-3 flex flex-col">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="title" name="title" required placeholder="Enter Property title" />
+        <a href="{% url 'credits' %}" class="w-auto sm:w-auto mt-2 sm:mt-0 bg-[#F4511E] text-white font-medium rounded px-5 py-2 hover:shadow-lg duration-200">Buy Credit</a>
       </div>
+    {% endif %}
 
-      {% comment %}category{% endcomment %}
-      <div class="mb-3 flex flex-col">
-        <label for="category" class="form-label">Category</label>
-        {% comment %} <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="name" name="category" required placeholder="Enter your Name" /> {% endcomment %}
+    {% if user_info.credit >= 5 %}
+      <h2 class="text-3xl text-center text-[#F4511E] font-bold">Add Property</h2>
+      <form action="/properties/property/add" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-        <select name="category" id="category" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]">
-          {% comment %} <option value="house">House</option>
-          <option value="apartment">Apartment</option>
-          <option value="office">Office</option>
-          <option value="land">Land</option> {% endcomment %}
+        {% comment %}title{% endcomment %}
 
-          {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.category_name }}</option>
-          {% endfor %}
-        </select>
-      </div>
+        <div class="mb-3 flex flex-col">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="title" name="title" required placeholder="Enter Property title" />
+        </div>
 
-      {% comment %}No of room{% endcomment %}
-      <div class="mb-3 flex flex-col">
-        <label for="rooms" class="form-label">Rooms</label>
-        <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="rooms" name="rooms" required placeholder="No. of rooms" />
-      </div>
+        {% comment %}category{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="category" class="form-label">Category</label>
+          {% comment %} <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="name" name="category" required placeholder="Enter your Name" /> {% endcomment %}
 
-      {% comment %}No of washrooms{% endcomment %}
-      <div class="mb-3 flex flex-col">
-        <label for="washrooms" class="form-label">Washrooms</label>
-        <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="washrooms" name="washrooms" required placeholder="No. of washrooms" />
-      </div>
+          <select name="category" id="category" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]">
+            {% comment %} <option value="house">House</option>
+            <option value="apartment">Apartment</option>
+            <option value="office">Office</option>
+            <option value="land">Land</option> {% endcomment %}
 
-      {% comment %}No. of kithen{% endcomment %}
-      <div class="mb-3 flex flex-col">
-        <label for="kitchen" class="form-label">Kitchen</label>
-        <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="kitchen" name="kitchen" required placeholder="No. of kitchen" />
-      </div>
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.category_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
 
-      {% comment %}No. of balcony{% endcomment %}
+        {% comment %}No of room{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="rooms" class="form-label">Rooms</label>
+          <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="rooms" name="rooms" required placeholder="No. of rooms" />
+        </div>
 
-      <div class="mb-3 flex flex-col">
-        <label for="balcony" class="form-label">Balcony</label>
-        <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="balcony" name="balcony" required placeholder="No. of balcony" />
-      </div>
+        {% comment %}No of washrooms{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="washrooms" class="form-label">Washrooms</label>
+          <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="washrooms" name="washrooms" required placeholder="No. of washrooms" />
+        </div>
 
-      {% comment %}floor{% endcomment %}
+        {% comment %}No. of kithen{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="kitchen" class="form-label">Kitchen</label>
+          <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="kitchen" name="kitchen" required placeholder="No. of kitchen" />
+        </div>
 
-      <div class="mb-3 flex flex-col">
-        <label for="floor" class="form-label">Floor</label>
-        <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="floor" name="floor" required placeholder="Floor" />
-      </div>
+        {% comment %}No. of balcony{% endcomment %}
 
-      {% comment %}property_img{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="balcony" class="form-label">Balcony</label>
+          <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="balcony" name="balcony" required placeholder="No. of balcony" />
+        </div>
 
-      <div class="mb-3 flex flex-col">
-        <label for="property_img" class="form-label">Property Image</label>
-        <input type="file" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="property_img" name="property_img" required placeholder="Property Image" />
-      </div>
+        {% comment %}floor{% endcomment %}
 
-      {% comment %}description{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="floor" class="form-label">Floor</label>
+          <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="floor" name="floor" required placeholder="Floor" />
+        </div>
 
-      <div class="mb-3 flex flex-col">
-        <label for="description" class="form-label">Description</label>
-        <textarea rows="5" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="description" name="description" required placeholder="Description"></textarea>
-      </div>
+        {% comment %}property_img{% endcomment %}
 
-      {% comment %}price{% endcomment %}
-      <div class="mb-3 flex flex-col">
-        <label for="price" class="form-label">Price</label>
-        <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="price" name="price" required placeholder="Price" />
-      </div>
+        <div class="mb-3 flex flex-col">
+          <label for="property_img" class="form-label">Property Image</label>
+          <input type="file" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="property_img" name="property_img" required placeholder="Property Image" />
+        </div>
 
-      {% comment %}location{% endcomment %}
-      {% comment %}area{% endcomment %}
+        {% comment %}description{% endcomment %}
 
-      <div class="mb-3 flex flex-col">
-        <label for="area" class="form-label">Location - Area</label>
-        <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="area" name="area" required placeholder="Area" />
-      </div>
+        <div class="mb-3 flex flex-col">
+          <label for="description" class="form-label">Description</label>
+          <textarea rows="5" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="description" name="description" required placeholder="Description"></textarea>
+        </div>
 
-      {% comment %}lcoation{% endcomment %}
-      {% comment %}road_no{% endcomment %}
+        {% comment %}price{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="price" name="price" required placeholder="Price" />
+        </div>
 
-      <div class="mb-3 flex flex-col">
-        <label for="road_no" class="form-label">Location - Road No.</label>
-        <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="road_no" name="road_no" required placeholder="Road No." />
-      </div>
+        {% comment %}location{% endcomment %}
+        {% comment %}area{% endcomment %}
 
-      {% comment %}location{% endcomment %}
-      {% comment %}post_code{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="area" class="form-label">Location - Area</label>
+          <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="area" name="area" required placeholder="Area" />
+        </div>
 
-      <div class="mb-3 flex flex-col">
-        <label for="post_code" class="form-label">Location - Post Code</label>
-        <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="post_code" name="post_code" required placeholder="Post Code" />
-      </div>
+        {% comment %}lcoation{% endcomment %}
+        {% comment %}road_no{% endcomment %}
 
-      {% comment %}location{% endcomment %}
-      {% comment %}upazila{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="road_no" class="form-label">Location - Road No.</label>
+          <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="road_no" name="road_no" required placeholder="Road No." />
+        </div>
 
-      <div class="mb-3 flex flex-col">
-        <label for="upazila" class="form-label">Location - Thana</label>
-        <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="upazila" name="upazila" required placeholder="Thana" />
-      </div>
+        {% comment %}location{% endcomment %}
+        {% comment %}post_code{% endcomment %}
 
-      {% comment %}location{% endcomment %}
-      {% comment %}district{% endcomment %}
+        <div class="mb-3 flex flex-col">
+          <label for="post_code" class="form-label">Location - Post Code</label>
+          <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="post_code" name="post_code" required placeholder="Post Code" />
+        </div>
 
-      <div class="mb-5 flex flex-col">
-        <label for="district" class="form-label">Location - District</label>
-        <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="district" name="district" required placeholder="District" />
-      </div>
+        {% comment %}location{% endcomment %}
+        {% comment %}upazila{% endcomment %}
 
-      <button type="submit" class="w-full bg-[#F4511E] text-white font-medium rounded px-5 py-3 hover:shadow-lg duration-200">Submit</button>
-    </form>
+        <div class="mb-3 flex flex-col">
+          <label for="upazila" class="form-label">Location - Thana</label>
+          <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="upazila" name="upazila" required placeholder="Thana" />
+        </div>
+
+        {% comment %}location{% endcomment %}
+        {% comment %}district{% endcomment %}
+
+        <div class="mb-5 flex flex-col">
+          <label for="district" class="form-label">Location - District</label>
+          <input type="text" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E]" id="district" name="district" required placeholder="District" />
+        </div>
+
+        <button type="submit" class="w-full bg-[#F4511E] text-white font-medium rounded px-5 py-3 hover:shadow-lg duration-200">Submit</button>
+      </form>
+    {% endif %}
   </div>
 {% endblock %}

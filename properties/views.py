@@ -56,10 +56,31 @@ def property_details(request, id):
 
 # Contact to Owner
 @login_required
-def contact_owner(request):
+def contact_owner(request, id):
+
+    propertyId = id
+
     # Check if the user is authenticated
     if request.user.is_authenticated:
-        return render(request, "contact_owner.html")
+
+        # Get the property
+        property = Property.objects.get(id=id)
+
+        # Get the owner of the property
+        owner = property.owner
+
+        print("Owner = ", owner)
+
+        # get the user info of the owner
+        ownerInfo = UserInfo.objects.get(user=owner.id)
+
+        print("Owner Info = ", ownerInfo)
+
+        return render(
+            request,
+            "contact_owner.html",
+            {"property": property, "owner": owner, "ownerInfo": ownerInfo},
+        )
     else:
         return render(request, "Login.html")
 
@@ -203,19 +224,24 @@ def add_property(request):
             return redirect("add-property")
 
     categories = Category.objects.all()
+    properties = request.user.property_set.all()
+    propertyCount = len(properties)
 
-    return render(request, "add_property.html", {"categories": categories})
+    user_info = UserInfo.objects.get(user=request.user)
+
+    return render(
+        request,
+        "add_property.html",
+        {
+            "categories": categories,
+            "propertyCount": propertyCount,
+            "user_info": user_info,
+        },
+    )
 
 
-# def add_property(request):
-#     if request.method == "POST":
-#         form = PropertyForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, "Property added successfully!")
-#             return redirect("property_list")
-#         else:
-#             messages.error(request, "Error adding property!")
-#             return redirect("add-property")
-
-#     return render(request, "add_property.html")
+def delete_property(request, id):
+    property = Property.objects.get(id=id)
+    property.delete()
+    messages.success(request, "Property deleted successfully!")
+    return redirect("/dashboard/my-properties")
