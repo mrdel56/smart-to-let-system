@@ -36,7 +36,7 @@
 
     {% comment %} <a href="/properties" class="w-full sm:w-auto mt-2 sm:mt-0 bg-[#F4511E] text-white font-medium rounded px-5 py-2 hover:shadow-lg flex items-center duration-200">All Properties</a> {% endcomment %}
 
-    <form class="sm:flex justify-between items-center lg:justify-end gap-2 mt-5 lg:mt-0">
+    <form action="/properties/?search={{ request.GET.search }}&sort_by={{ request.GET.sort_by }}&order={{ request.GET.order }}" method="GET" class="sm:flex justify-between items-center lg:justify-end gap-2 mt-5 lg:mt-0">
       {% comment %}search input{% endcomment %}
 
       <input type="subject" class="border border-gray-400 px-3 py-2 rounded outline-none focus:border focus:border-[#F4511E] w-full sm:w-auto" id="search" name="search" placeholder="Search Properties" />
@@ -44,18 +44,19 @@
       <div class="flex sm:block justify-end gap-2 mt-2 sm:mt-0">
         {% comment %}Sort By{% endcomment %}
 
-        <select class="text-white bg-[#F4511E] hover:bg-[#F4511F] focus:outline-none font-medium rounded text-sm px-2 py-2.5 text-center inline-flex items-center" name="order" id="order">
+        <select class="text-white bg-[#F4511E] hover:bg-[#F4511F] focus:outline-none font-medium rounded text-sm px-2 py-2.5 text-center inline-flex items-center" name="sort_by" id="order">
           <option class="bg-white text-black" value="">Sort By</option>
           <option class="bg-white text-black" value="price">Price</option>
-          <option class="bg-white text-black" value="bedroom">Bedroom</option>
-          <option class="bg-white text-black" value="bathroom">Bathroom</option>
+          <option class="bg-white text-black" value="rooms">Bedroom</option>
+          <option class="bg-white text-black" value="washrooms">Washrooms</option>
           <option class="bg-white text-black" value="floor">Floor</option>
-          <option class="bg-white text-black" value="kitchen">Kithen</option>
+          <option class="bg-white text-black" value="kitchen">Kitchen</option>
+          <option class="bg-white text-black" value="balcony">Balcony</option>
         </select>
 
         {% comment %}sorting order{% endcomment %}
 
-        <select class="text-white bg-[#F4511E] hover:bg-[#F4511F] focus:outline-none font-medium rounded text-sm px-2 py-2.5 text-center inline-flex items-center" name="sortBy" id="sortBy">
+        <select class="text-white bg-[#F4511E] hover:bg-[#F4511F] focus:outline-none font-medium rounded text-sm px-2 py-2.5 text-center inline-flex items-center" name="order" id="order">
           <option class="bg-white text-black" value="">Select Order</option>
           <option class="bg-white text-black" value="asc">Ascending</option>
           <option class="bg-white text-black" value="desc">Descending</option>
@@ -67,6 +68,12 @@
       </div>
     </form>
   </div>
+
+  {% if propertyCount == 0 %}
+    <div class="flex items-center justify-center h-96">
+      <h2 class="text-3xl font-bold text-center">No Properties Found</h2>
+    </div>
+  {% endif %}
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 py-10">
     {% for property in properties %}
