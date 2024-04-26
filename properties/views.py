@@ -3,8 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, redirect, render
 from django.views import View
 
+from userapp.models import UserInfo
+
 from . import forms
-from .forms import PropertyForm
+from .forms import LocationForm, PropertyForm
 from .models import Category, Location, Property
 
 
@@ -108,11 +110,103 @@ def contact_owner(request):
 
 
 def add_property(request):
-    if request.method == 'POST':
-        form = PropertyForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')  # Redirect to home page after successful property creation
-    else:
-        form = PropertyForm()
-    return render(request, 'add_property.html', {'form': form})
+    if request.method == "POST":
+
+        userInfo = UserInfo.objects.get(user=request.user)
+
+        if userInfo.credit < 5:
+            messages.error(request, "You don't have enough credit to add property!")
+            return redirect("add-property")
+
+        try:
+            data = request.POST
+            title = data.get("title")
+            category = data.get("category")
+            description = data.get("description")
+            rooms = data.get("rooms")
+            washrooms = data.get("washrooms")
+            kitchen = data.get("kitchen")
+            balcony = data.get("balcony")
+            floor = data.get("floor")
+            price = data.get("price")
+            property_img = request.FILES.get("property_img")
+
+            area = data.get("area")
+            road_no = data.get("road_no")
+            upazila = data.get("upazila")
+            post_code = data.get("post_code")
+            district = data.get("district")
+
+            category = Category.objects.get(id=category)
+
+            # validate all fields for location
+            if not area or not road_no or not upazila or not post_code or not district:
+                messages.error(request, "All fields are required!")
+                return redirect("add-property")
+
+            location = Location.objects.create(
+                area=area,
+                road_no=road_no,
+                upazila=upazila,
+                post_code=post_code,
+                district=district,
+            )
+
+            # validate all fields
+
+            if (
+                not title
+                or not category
+                or not description
+                or not rooms
+                or not washrooms
+                or not kitchen
+                or not balcony
+                or not floor
+                or not price
+                or not property_img
+                or not location
+            ):
+                messages.error(request, "All fields are required!")
+                return redirect("add-property")
+
+            property = Property.objects.create(
+                title=title,
+                category=category,
+                description=description,
+                rooms=rooms,
+                washrooms=washrooms,
+                kitchen=kitchen,
+                balcony=balcony,
+                floor=floor,
+                price=price,
+                property_img=property_img,
+                location=location,
+            )
+
+            userInfo.credit -= 5
+            userInfo.save()
+
+            messages.success(request, "Property added successfully!")
+            return redirect("add-property")
+        except:
+            messages.error(request, "Error adding property!")
+            return redirect("add-property")
+
+    categories = Category.objects.all()
+
+    return render(request, "add_property.html", {"categories": categories})
+
+
+# def add_property(request):
+#     if request.method == "POST":
+#         form = PropertyForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, "Property added successfully!")
+#             return redirect("property_list")
+#         else:
+#             messages.error(request, "Error adding property!")
+#             return redirect("add-property")
+
+#     return render(request, "add_property.html")

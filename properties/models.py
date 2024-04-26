@@ -17,7 +17,7 @@ from django.db import models
 #     email = models.EmailField()
 #     phone = models.CharField(max_length=100)
 #     properties = models.ManyToManyField("Property", related_name="property_owner")
-    
+
 
 #     def __str__(self):
 #         return self.user.username
@@ -45,8 +45,9 @@ class Location(models.Model):
 
 class Property(models.Model):
     # category = models.CharField(choices=CATEGORY_CHOICES,max_length=100)
+    title = models.TextField(null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     # space = models.TextField()
     # address = models.TextField()
     # price = models.FloatField(default=0.00)
