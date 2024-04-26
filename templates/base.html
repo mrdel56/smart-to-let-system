@@ -70,9 +70,9 @@
 
   <body>
     <nav  class=" fixed top-0 left-0 right-0  bg-white border  shadow-lg border-gray-200 text-black z-50">
-      <div class="container mx-auto px-5 flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="{% static '/images/logo.png' %}" class="h-8" alt="Flowbite Logo" />
+      <div class="container mx-auto ps-3 px-5 flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="/" class="flex items-center ">
+          <img src="{% static '/images/logo.png' %}" class="h-8 mr-2" alt="Flowbite Logo" />
           <span class="self-center text-lg sm:text-2xl text-black font-semibold whitespace-nowrap ">Smart To Let</span>
         </a>
 
@@ -213,7 +213,10 @@
       {% endblock %}
     </main>
 
-    <footer class="container-fluid fixed bottom-0 left-0 right-0  border-t text-center p-2 mt-5  bg-white">@Copyright : 2024 || Develop By : Team Brogrammers</footer>
+    <footer class="container-fluid fixed bottom-0 left-0 right-0  border-t text-center p-2 mt-5 text-sm bg-white">@Copyright : 2024 || Develop By : Team Brogrammers</footer>
+
+
+
 
     <!-- Include JavaScript files -->
     <script src="{% static '/js/script.js' %}"></script>
