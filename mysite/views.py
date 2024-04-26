@@ -3,20 +3,27 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_process
 from django.contrib.auth import logout as logout_process
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.shortcuts import HttpResponse, redirect, render
+
 from profileapp.models import Profile
 from properties.models import Property
+from userapp.models import UserInfo
+
 
 def base(request):
     return render(request, "base.html")
 
+
 def home(request):
     properties = Property.objects.all()
-    return render(request, 'home.html', {'properties': properties})
+    return render(request, "home.html", {"properties": properties})
+
 
 # profile = Profile.objects.get(user=request.user)
-    # 
-    # return render(request, 'home.html', {'profile': profile, 'properties': properties})
+#
+# return render(request, 'home.html', {'profile': profile, 'properties': properties})
 
 
 def signup(request):
@@ -69,10 +76,54 @@ def signup(request):
             last_name=lname,
         )
         user.save()
+
+        # create user profile
+        # user_info = UserInfo.objects.create(
+        #     user=user,
+        #     first_name=fname,
+        #     last_name=lname,
+        #     phone="",
+        #     address="",
+        #     image="",
+        #     credit=0,
+        # )
+
+        # user_info.save()
+
         # return HttpResponse("Signup Successful")
         messages.success(request, "Signup successful please login!")
         return redirect("/login")
     return render(request, "Sign-Up.html")
+
+
+@receiver(post_save, sender=User)
+def create_user_info(sender, instance, created, **kwargs):
+    """
+    Signal receiver function to create UserInfo object when a User is created.
+    """
+    if created:
+        # UserInfo.objects.create(
+        #     user=instance,
+        #     first_name=instance.first_name,
+        #     last_name=instance.last_name,
+        # )
+        UserInfo.objects.create(
+            user=instance,
+            first_name=instance.first_name,
+            last_name=instance.last_name,
+            phone="",
+            address="",
+            image="",
+            credit=0,
+        )
+
+
+@receiver(post_save, sender=User)
+def save_user_info(sender, instance, **kwargs):
+    """
+    Signal receiver function to save UserInfo object when a User is saved.
+    """
+    instance.userinfo.save()
 
 
 def login(request):

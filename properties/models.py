@@ -45,6 +45,7 @@ class Location(models.Model):
 
 class Property(models.Model):
     # category = models.CharField(choices=CATEGORY_CHOICES,max_length=100)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.TextField(null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
