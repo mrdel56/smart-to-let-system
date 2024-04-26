@@ -42,8 +42,16 @@ def category(request, val):
 
 # property details
 def property_details(request, id):
+
     property = Property.objects.get(id=id)
-    return render(request, "property_details.html", {"property": property})
+    location = Location.objects.get(id=property.location.id)
+
+    print("property details = ", property)
+    print("location details = ", location)
+
+    return render(
+        request, "property_details.html", {"property": property, "location": location}
+    )
 
 
 # Contact to Owner
@@ -171,6 +179,7 @@ def add_property(request):
                 return redirect("add-property")
 
             property = Property.objects.create(
+                owner=request.user,
                 title=title,
                 category=category,
                 description=description,
