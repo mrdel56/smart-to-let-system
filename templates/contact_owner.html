@@ -16,12 +16,12 @@
       <div class="flex items-center py-3">
         <img src="{% static 'images/user.png' %}" alt="user" class="w-12 h-12 rounded-full" />
         <div class="ml-3">
-          <h2 class="text-lg font-semibold text-[#F4511F]">Name: <span class="font-bold">Mr. bari ola</span></h2>
+          <h2 class="text-lg font-semibold text-[#F4511F]">Name: <span class="font-bold">{{ ownerInfo.first_name|default:'N/A' }} {{ ownerInfo.last_name|default:'' }}</span></h2>
           <p class="text-base text-gray-600">
-            Email: <a href="mailto:landlord@email.com" class="font-bold">landlord@email.com</a>
+            Email: <a href="mailto:landlord@email.com" class="font-bold">{{ owner.email|default:'N/A' }}</a>
           </p>
           <p class="text-base text-gray-600">
-            Phone: <a href="tel:+1234567890" class="font-bold">1234567890</a>
+            Phone: <a href="tel:+1234567890" class="font-bold">{{ owner.phone|default:'N/A' }}</a>
           </p>
         </div>
       </div>

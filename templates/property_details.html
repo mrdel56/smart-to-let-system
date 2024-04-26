@@ -76,23 +76,23 @@
 
         <div class="grid lg:flex gap-4 w-full">
           <div class="w-full">
-            <img class="h-96 w-full rounded-lg object-cover" src="{% static '/images/slider-3.jpg' %}" alt="" />
+            <img class="h-96 w-full rounded-lg object-cover" src="{{ property.property_img.url }}" alt="" />
           </div>
           <div class="grid w-full grid-cols-3 gap-4">
             <div>
-              <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="" />
+              <img class="h-auto max-w-full rounded-lg" src="https://www.legrand.com/ecatalogue/modules/custom/legrand_ecat/assets/img/no-image.png" alt="" />
             </div>
             <div>
-              <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="" />
+              <img class="h-auto max-w-full rounded-lg" src="https://www.legrand.com/ecatalogue/modules/custom/legrand_ecat/assets/img/no-image.png" alt="" />
             </div>
             <div>
-              <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="" />
+              <img class="h-auto max-w-full rounded-lg" src="https://www.legrand.com/ecatalogue/modules/custom/legrand_ecat/assets/img/no-image.png" alt="" />
             </div>
             <div>
-              <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="" />
+              <img class="h-auto max-w-full rounded-lg" src="https://www.legrand.com/ecatalogue/modules/custom/legrand_ecat/assets/img/no-image.png" alt="" />
             </div>
             <div>
-              <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="" />
+              <img class="h-auto max-w-full rounded-lg" src="https://www.legrand.com/ecatalogue/modules/custom/legrand_ecat/assets/img/no-image.png" alt="" />
             </div>
           </div>
         </div>
@@ -100,26 +100,22 @@
         <p>No profile image available</p>
       {% endif %}
       <div class="p-5 grid grid-cols-1 lg:grid-cols-2 gap-7">
-        {% comment %} <h5>{{ property.category }}</h5>
-        <p>{{ property.space }}</p>
-        <p>{{ property.address }}</p>
-        <p>৳: {{ property.price }}</p>
-        <a href="#">View Details</a> {% endcomment %}
-
-        {% comment %} <p class="font-bold text-lg py-2">Bachelor Room Rent</p>
-        <p class="text-sm text-gray-500">bed: 1, Bath: 1</p>
-        <p class="text-sm text-gray-500">To Let From April</p>
-        <p class="text-sm font-medium text-gray-800">Dhanmondi, Dhaka Bangladesh</p>
-        <p class="text-2xl pt-1 font-bold text-[#F4511E]">7500/Month</p> {% endcomment %}
-
         <div>
-          <span class="bg-green-200 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">Green</span>
+          <span class="bg-green-200 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full font-bold">{{ property.category }}</span>
 
           <h1 class="text-xl sm:text-2xl pt-1 font-bold text-[#F4511E] flex gap-2 items-center">
             <svg class="w-6 h-6 text-[#F4511E]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
               <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11.5c.07 0 .14-.007.207-.021.095.014.193.021.293.021h2a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1h-1a1 1 0 1 0 0 2v11h-2V5a2 2 0 0 0-2-2H5Zm7 4a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm-6 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1ZM7 6a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7Zm1 3V8h1v1H8Z" clip-rule="evenodd" />
             </svg>Basic Information
           </h1>
+
+          <div class="mt-5">
+            <p class="font-medium text-xl">{{ property.title }}</p>
+          </div>
+
+          <div class="">
+            <p class="text-base">{{ property.description }}</p>
+          </div>
 
           {% comment %}price{% endcomment %}
 
@@ -134,11 +130,11 @@
           {% comment %}bed , bath, balcony{% endcomment %}
 
           <div class="flex flex-col gap-1 sm:flex-row gap-3 text-sm font-medium">
-            <div>Bedroom: 3</div>
-            <div>Bathroom: 2</div>
-            <div>Kitchen: 1</div>
-            <div>Balcony: 2</div>
-            <div>Floor: 4</div>
+            <div>Bedroom: {{ property.rooms }}</div>
+            <div>Bathroom: {{ property.washrooms }}</div>
+            <div>Kitchen: {{ property.kitchen }}</div>
+            <div>Balcony: {{ property.balcony }}</div>
+            <div>Floor: {{ property.floor }}</div>
           </div>
 
           {% comment %}other info section{% endcomment %}
@@ -146,18 +142,18 @@
           <div class="pt-8 border-t mt-5 flex justify-between flex-col gap-2 sm:flex-row">
             <div class="text-sm">
               <p class="opacity-70">PROPERTY ID</p>
-              <p class="font-medium mt-2">525</p>
+              <p class="font-medium mt-2">{{ property.id }}</p>
             </div>
 
             <div class="text-sm">
               <p class="opacity-70">CATEGORY</p>
-              <p class="font-medium mt-2"></p>
+              <p class="font-bold mt-2">{{ property.category }}</p>
             </div>
 
-            <div class="text-sm">
+            {% comment %} <div class="text-sm">
               <p class="opacity-70">AVAILABLE FROM</p>
               <p class="font-medium mt-2">JUNE, 2024</p>
-            </div>
+            </div> {% endcomment %}
           </div>
         </div>
 
@@ -173,40 +169,40 @@
           <div class="mt-5 flex justify-between flex-col gap-2">
             <div class="text-sm">
               <p class="opacity-70">ROAD NO</p>
-              <p class="font-medium mt-2">N/A</p>
+              <p class="font-medium mt-2">{{ location.road_no }}</p>
             </div>
 
             <div class="text-sm">
-              <p class="opacity-70">HOSUE NO</p>
-              <p class="font-medium mt-2">11/1</p>
+              <p class="opacity-70">Area</p>
+              <p class="font-medium mt-2">{{ location.area }}</p>
             </div>
 
             <div class="text-sm">
-              <p class="opacity-70">REF</p>
-              <p class="font-medium mt-2">N/A</p>
+              <p class="opacity-70">Post Code</p>
+              <p class="font-medium mt-2">{{ location.post_code }}</p>
             </div>
           </div>
 
           <div class="mt-8 flex justify-between flex-col gap-2 sm:flex-row">
             <div class="text-sm">
-              <p class="opacity-70">DIVISION</p>
-              <p class="font-medium mt-2">DHAKA</p>
+              <p class="opacity-70">Thana</p>
+              <p class="font-medium mt-2">{{ location.upazila }}</p>
             </div>
 
             <div class="text-sm">
               <p class="opacity-70">DISCTRICT</p>
-              <p class="font-medium mt-2">DHAKA</p>
+              <p class="font-medium mt-2">{{ location.district }}</p>
             </div>
 
             <div class="text-sm">
-              <p class="opacity-70">AREA</p>
-              <p class="font-medium mt-2">Dhanmondi</p>
+              <p class="opacity-70">Country</p>
+              <p class="font-medium mt-2">Bangladesh</p>
             </div>
           </div>
 
           {% if user.is_authenticated %}
             <div class="mt-5 w-full flex justify-center">
-              <a href="{% url 'contact-owner' %}" class="w-full text-center bg-[#F4511E] text-white font-medium rounded-lg px-5 py-2 hover:shadow-lg duration-200">CONATCT TO OWNER</a>
+              <a href="{% url 'contact-owner' property.id %}" class="w-full text-center bg-[#F4511E] text-white font-medium rounded-lg px-5 py-2 hover:shadow-lg duration-200">CONATCT TO OWNER</a>
             </div>
           {% endif %}
 

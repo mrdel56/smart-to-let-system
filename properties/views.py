@@ -56,10 +56,31 @@ def property_details(request, id):
 
 # Contact to Owner
 @login_required
-def contact_owner(request):
+def contact_owner(request, id):
+
+    propertyId = id
+
     # Check if the user is authenticated
     if request.user.is_authenticated:
-        return render(request, "contact_owner.html")
+
+        # Get the property
+        property = Property.objects.get(id=id)
+
+        # Get the owner of the property
+        owner = property.owner
+
+        print("Owner = ", owner)
+
+        # get the user info of the owner
+        ownerInfo = UserInfo.objects.get(user=owner.id)
+
+        print("Owner Info = ", ownerInfo)
+
+        return render(
+            request,
+            "contact_owner.html",
+            {"property": property, "owner": owner, "ownerInfo": ownerInfo},
+        )
     else:
         return render(request, "Login.html")
 
