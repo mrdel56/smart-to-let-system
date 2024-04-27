@@ -160,3 +160,6 @@ from django.views import View
 class CategoryView(View):
     def get(self, request):
         return render(request, "category.html")
+
+def about(request):
+    return render(request, "about.html")

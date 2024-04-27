@@ -16,6 +16,7 @@ urlpatterns = [
     path("dashboard/", include("profileapp.urls")),
     path("", include("credit.urls")),
     path("", include("contactUsapp.urls")),
+    path("about/", views.about, name="about"),
     # path("", include("dashboard.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

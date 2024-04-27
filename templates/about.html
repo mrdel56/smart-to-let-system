@@ -1,0 +1,28 @@
+<!-- contact_success.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+
+    
+
+<div class="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
+    <div class="flex flex-col lg:flex-row justify-between gap-8">
+        <div class="w-full lg:w-5/12 flex flex-col justify-center">
+            <h1 class="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 dark:text-white pb-4">About Us</h1>
+            <p class="font-normal text-base leading-6 text-gray-600 dark:text-white">Welcome to Smart To Let, your online solution for all rental needs in Bangladesh. We provide a digital platform to effortlessly find family homes, bachelor pads, offices, hostels, sublets, and mess facilities across the country, eliminating the hassles of dealing with brokers. Our goal is to contribute to the digitalization of Bangladesh's rental market, offering landlords a convenient way to find tenants and tenants the perfect accommodation, all while saving time and costs. With our user-friendly platform, you can easily publish rental advertisements for any area in Bangladesh, making leaflets a thing of the past. Join us today to rent or find your ideal home hassle-free.</p>
+        </div>
+        <div class="w-full lg:w-8/12">
+            <img class="w-full h-full" src="{% static 'images/slider-3.jpg' %}" alt="A group of People" />
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+{% endblock %}
