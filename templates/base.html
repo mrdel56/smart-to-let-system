@@ -68,8 +68,10 @@
     
   </head>
 
-  <body>
-    <nav  class=" fixed top-0 left-0 right-0  bg-white border  shadow-lg border-gray-200 text-black z-50">
+  <body class="">
+   
+    <div>
+       <nav  class=" fixed top-0 left-0 right-0  bg-white border  shadow-lg border-gray-200 text-black z-50">
       <div class="container mx-auto ps-3 px-5 flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" class="flex items-center ">
           <img src="{% static '/images/logo.png' %}" class="h-8 mr-2" alt="Flowbite Logo" />
@@ -207,15 +209,16 @@
       </div>
     </nav>
 
-    <main class="py-5 container mx-auto px-5 mt-20">
+    <main class="py-5 container mx-auto px-5 mt-20 ">
       {% block content %}
         <!-- Content specific to individual pages will be inserted here -->
       {% endblock %}
     </main>
+    </div>
 
-    {% comment %} <footer class="container-fluid fixed bottom-0 left-0 right-0  border-t text-center p-2 mt-5 text-sm bg-white">@Copyright : 2024 || Develop By : Team Brogrammers</footer>  {% endcomment %}
+     <footer class="container-fluid fixed bottom-0 left-0 right-0  border-t text-center p-2 mt-5 text-sm bg-white">@Copyright : 2024 || Develop By : Team Brogrammers</footer>  
 
-    <footer class="px-4 divide-y dark:bg-gray-100 dark:text-gray-800  border-t ">
+    {% comment %} <footer class="px-4 divide-y dark:bg-gray-100 dark:text-gray-800  border-t ">
       <div class="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
         <div class="lg:w-1/3">
           <a rel="noopener noreferrer" href="#" class="flex justify-center space-x-3 lg:justify-start">
@@ -284,7 +287,7 @@
         </div>
       </div>
       <div class="py-6 text-sm text-center dark:text-gray-600">© 2024 Team Brogrammers. All rights reserved.</div>
-    </footer>
+    </footer> {% endcomment %}
 
 
 
