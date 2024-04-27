@@ -16,16 +16,42 @@ def base(request):
     return render(request, "base.html")
 
 
+# def home(request):
+#     properties = Property.objects.all()
+#     locations = Location.objects.all()
+
+#     # give latest 8 properties
+#     properties = properties.order_by("-id")[:8]
+
+#     return render(
+#         request, "home.html", {"properties": properties, "locations": locations}
+#     )
+
+from django.db.models import Count
+
 def home(request):
     properties = Property.objects.all()
     locations = Location.objects.all()
+    # Get all properties ordered by the latest ones
+    properties = Property.objects.order_by("-id")[:8]
 
-    # give latest 8 properties
-    properties = properties.order_by("-id")[:8]
+    # Get all unique locations
+    # locations = Location.objects.values_list("name", flat=True).distinct()[:6]
+    # locations = Location.objects.annotate(property_count=Count('property')).filter(property_count__gt=1)
+    # locations_with_counts = Location.objects.annotate(property_count=Count('property'))
+
+    # Sort locations by property count in descending order and get the top 5
+    # locations = locations_with_counts.order_by('-property_count')[:2] 
+    # locations = Location.objects.annotate(property_count=Count('property')).order_by('-[property_count]_count')[:5]
+    locations = Location.objects.values('area','district').annotate(property_count=Count('property')).order_by('-property_count')[:8] 
 
     return render(
         request, "home.html", {"properties": properties, "locations": locations}
     )
+
+
+
+
 
 
 # profile = Profile.objects.get(user=request.user)
