@@ -8,7 +8,7 @@ from django.dispatch import receiver
 from django.shortcuts import HttpResponse, redirect, render
 
 from profileapp.models import Profile
-from properties.models import Property
+from properties.models import Location, Property
 from userapp.models import UserInfo
 
 
@@ -18,7 +18,14 @@ def base(request):
 
 def home(request):
     properties = Property.objects.all()
-    return render(request, "home.html", {"properties": properties})
+    locations = Location.objects.all()
+
+    # give latest 8 properties
+    properties = properties.order_by("-id")[:8]
+
+    return render(
+        request, "home.html", {"properties": properties, "locations": locations}
+    )
 
 
 # profile = Profile.objects.get(user=request.user)

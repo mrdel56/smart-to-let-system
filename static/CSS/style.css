@@ -1,6 +1,42 @@
 * {
   font-family: "DM Sans", sans-serif !important;
 }
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.mySwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* border-radius: 20px !important; */
+}
+
+.swiper-button-next,
+.swiper-button-prev,
+.swiper-pagination-bullets-active {
+  /* color: #f4511e !important; */
+  color: white !important;
+}
