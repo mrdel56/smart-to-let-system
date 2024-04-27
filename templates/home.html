@@ -122,7 +122,7 @@
       <p class="flex pb-1 mb-2 border-b-2 border-[#F4511E] text-xs">MAIN PURPOSE OF OUR COMPANY</p>
     </div>
 
-    <div class="rounded-l shadow-lg px-5 rounded-lg">
+    {% comment %} <div class="rounded-l shadow-lg px-5 rounded-lg">
       <p class="text-sm py-3">
         Welcome to The Smart-to-let online platform. This is an online-based effort to solve all the problems like Family - House / Bachelor - House / Office / Hostel / Sublet / Mess related to rent and which is also working as a part of the conviction to build a Digital Bangladesh.
         <br />
@@ -131,6 +131,16 @@
         You can publish the house rent advertisement in any area or region of Bangladesh. By using Thetolet every street and house wall will be free of leaflets.
       </p>
     </div>
-  </div>
+  </div> {% endcomment %}
+  <div class="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4  rounded-l shadow-lg">
+    <div class="flex flex-col lg:flex-row justify-between gap-8">
+      <div class="w-full lg:w-5/12 flex flex-col justify-center">
+        <p class="font-normal text-base leading-6 text-gray-600">
+          Smart To Let transforms Bangladesh's rental market with an efficient online platform for property searches, spanning family homes to bachelor pads and offices. By eliminating broker hurdles, we simplify tenant-landlord connections, cutting time and costs. With an intuitive interface, publishing rental ads for any Bangladeshi area is effortless, revolutionizing property transactions nationwide.</p>
+      </div>
+      <div class="w-full lg:w-8/12 ms-9">
+        <img class="w-10/12 h-10/12" src="{% static 'images/purpose.jpg' %}" alt="A group of People" />
+      </div>
+    </div>
 {% endblock %}
 <!-- home page end -->
