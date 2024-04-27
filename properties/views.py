@@ -31,6 +31,7 @@ def property_list(request):
             Q(title__icontains=search)
             | Q(description__icontains=search)
             | Q(price__icontains=search)
+            | Q(category__category_name__icontains=search)
             | Q(location__area__icontains=search)
             | Q(location__upazila__icontains=search)
             | Q(location__district__icontains=search)
